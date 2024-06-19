@@ -13,20 +13,21 @@
 #include <queue>
 #include <string>
 #include <stack>
+#include <algorithm>
 #include "Node.hpp"
 
 
 
-template<typename T>
+template<typename T, int K = 2>
 class Tree{
     private:
     Node<T>* root;
-    int k;
+
 
     void delete_tree(Node<T>* node);
 
     public:
-    explicit Tree(int k = 2);
+    explicit Tree();
     ~Tree();
 
     void add_root(Node<T>& node);
