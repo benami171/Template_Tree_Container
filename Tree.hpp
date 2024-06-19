@@ -11,8 +11,11 @@
 #include <iostream>
 #include <vector>
 #include <queue>
+#include <string>
 #include <stack>
 #include "Node.hpp"
+
+
 
 template<typename T>
 class Tree{
@@ -20,15 +23,12 @@ class Tree{
     Node<T>* root;
     int k;
 
-    template <typename T>
     void delete_tree(Node<T>* node);
 
     public:
 
-    explicit Tree(int k = 2): root(nullptr), k(k){}
-    ~Tree(){
-        delete_tree(root);
-    }
+    explicit Tree(int k = 2);
+    ~Tree();
 
     void add_root
 };
