@@ -12,7 +12,7 @@
 #include <vector>
 #include <queue>
 #include <stack>
-#include "node.hpp"
+#include "Node.hpp"
 
 template<typename T>
 class Tree{
@@ -20,15 +20,8 @@ class Tree{
     Node<T>* root;
     int k;
 
-    void delete_tree(Node<T>* node){
-        if(node == nullptr){
-            return;
-        }
-        for(auto child: node->children){
-            delete_tree(child);
-        }
-        delete node;
-    }
+    template <typename T>
+    void delete_tree(Node<T>* node);
 
     public:
 
