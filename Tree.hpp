@@ -26,9 +26,11 @@ class Tree{
     void delete_tree(Node<T>* node);
 
     public:
-
     explicit Tree(int k = 2);
     ~Tree();
 
-    void add_root
+    void add_root(Node<T>& node);
+    void add_sub_node(Node<T>& parent, Node<T>& child);
+
+
 };
