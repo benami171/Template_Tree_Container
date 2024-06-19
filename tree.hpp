@@ -4,4 +4,38 @@
 // the tree will contain nodes that contains templates of type T.
 // we will want to implement a container that represent the tree thats mentioned above.
 
-// when creating a tree, we will need to
+
+
+#pragma once
+
+#include <iostream>
+#include <vector>
+#include <queue>
+#include <stack>
+#include "node.hpp"
+
+template<typename T>
+class Tree{
+    private:
+    Node<T>* root;
+    int k;
+
+    void delete_tree(Node<T>* node){
+        if(node == nullptr){
+            return;
+        }
+        for(auto child: node->children){
+            delete_tree(child);
+        }
+        delete node;
+    }
+
+    public:
+
+    explicit Tree(int k = 2): root(nullptr), k(k){}
+    ~Tree(){
+        delete_tree(root);
+    }
+
+    void add_root
+};
