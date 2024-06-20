@@ -9,8 +9,10 @@ class Node{
     T value;
     std::vector<Node<T>*> children;
 
-    Node(T value);
+    Node(T value) : value(value) {}
 
-    T getValue() const;
-
+    T getValue() const
+    {
+        return value;
+    }
 };
