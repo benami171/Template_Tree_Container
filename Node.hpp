@@ -11,11 +11,9 @@ class Node{
 
     Node(T value) : value(value) {}
 
-    T get_value() const
-    {
-        return value;
-    }
-
+    const T &get_value() const {return value;}
+    const std::vector<Node<T>*> &get_children() const {return children;}
+    
     bool operator<(const Node<T>& other) const
     {
         return value < other.value;

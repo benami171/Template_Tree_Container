@@ -5,12 +5,14 @@
 #include <queue>
 #include <stack>
 #include <string>
+#include <unordered_set>
 #include <vector>
 
 #include "Node.hpp"
 
 template <typename T, int K = 2>
 class Tree {
+
    private:
     Node<T>* root;
 
@@ -27,9 +29,9 @@ class Tree {
    public:
     explicit Tree() : root(nullptr) {}
 
-    ~Tree() {
-        delete_tree(root);
-    }
+    // ~Tree() {
+    //     delete_tree(root);
+    // }
 
     void add_root(Node<T>& node) {
         root = &node;
@@ -74,12 +76,10 @@ class Tree {
             return *this;
         }
 
-        bool operator!=(const pre_order_iter& other) {
-            return nodes_stack.size() != other.nodes_stack.size();
+        bool operator!=(const pre_order_iter& other) const {
+            return !nodes_stack.empty();
         }
     };
-
-    
 
     pre_order_iter begin_pre_order() {
         return pre_order_iter(root);
@@ -87,5 +87,70 @@ class Tree {
 
     pre_order_iter end_pre_order() {
         return pre_order_iter(nullptr);
+    }
+
+    class PostOrderIterator {
+       private:
+        Node<T>* current;
+        std::stack<Node<T>*> stk;
+        std::unordered_set<Node<T>*> visited;
+
+        void push_children(Node<T>* node) {
+            if (node) {
+                stk.push(node);
+                for (auto it = node->children.rbegin(); it != node->children.rend(); ++it) {
+                    if (*it) stk.push(*it);
+                }
+            }
+        }
+
+       public:
+        PostOrderIterator(Node<T>* root) {
+            push_children(root);
+            advance();
+        }
+
+        void advance() {
+            while (!stk.empty()) {
+                Node<T>* node = stk.top();
+                if (node == nullptr) {
+                    stk.pop();
+                    if (!stk.empty()) {
+                        current = stk.top();
+                        stk.pop();
+                    }
+                    return;
+                }
+                if (visited.find(node) == visited.end()) {
+                    stk.push(nullptr);
+                    push_children(node);
+                    visited.insert(node);
+                } else {
+                    stk.pop();
+                }
+            }
+            current = nullptr;
+        }
+
+        Node<T>* operator*() const {
+            return current;
+        }
+
+        PostOrderIterator& operator++() {
+            advance();
+            return *this;
+        }
+
+        bool operator!=(const PostOrderIterator& other) const {
+            return current != other.current;
+        }
+    };
+
+    PostOrderIterator begin_post_order() {
+        return PostOrderIterator(root);
+    }
+
+    PostOrderIterator end_post_order() {
+        return PostOrderIterator(nullptr);
     }
 };
