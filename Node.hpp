@@ -11,7 +11,7 @@ class Node{
 
     Node(T value) : value(value) {}
 
-    T getValue() const
+    T get_value() const
     {
         return value;
     }
@@ -36,5 +36,5 @@ class Node{
         return !(*this == other);
     }
 
-    
+
 };
