@@ -15,4 +15,26 @@ class Node{
     {
         return value;
     }
+
+    bool operator<(const Node<T>& other) const
+    {
+        return value < other.value;
+    }
+
+    bool operator>(const Node<T>& other) const
+    {
+        return value > other.value;
+    }
+
+    bool operator==(const Node<T>& other) const
+    {
+        return (!(value < other.value)) && (!(value > other.value));
+    }
+
+    bool operator!=(const Node<T>& other) const
+    {
+        return !(*this == other);
+    }
+
+    
 };
