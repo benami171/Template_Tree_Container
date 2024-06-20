@@ -1,10 +1,10 @@
 # Iterators and Templates on trees.
 
-## Node class
-
-- holds a vector of pointers to its children.
-- has an explicit constructor.
-
 
 ## Tree class
+- A template class that represents a K-ary tree (Binary by default).
+holds an access to the root node.
+
+has the Following Iterators:
+ - `
 

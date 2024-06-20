@@ -12,7 +12,6 @@
 
 template <typename T, int K = 2>
 class Tree {
-
    private:
     Node<T>* root;
 
@@ -154,8 +153,79 @@ class Tree {
         return PostOrderIterator(nullptr);
     }
 
+    // template <typename T>
+    // class DFS;
 
-     class in_order_iter {
-        
-     }
+    class inOrderIterator {
+        //     friend class DFS<T>;  // Make DFS a friend class so it can access private members
+
+       private:
+        Node<T>* current;
+        std::stack<Node<T>*> stk;
+
+        void push_left(Node<T>* node) {
+            while (node) {
+                stk.push(node);
+                if (!node->children.empty()) {
+                    node = node->children[0];
+                } else {
+                    node = nullptr;
+                }
+            }
+        }
+
+       public:
+        inOrderIterator(Node<T>* root) {
+            Node<T>* node = root;
+            while (node) {
+                stk.push(node);
+                if (!node->children.empty()) {
+                    node = node->children[0];
+                } else {
+                    node = nullptr;
+                }
+            }
+            if (!stk.empty()) {
+                current = stk.top();
+                stk.pop();
+            }
+        }
+
+        Node<T>* operator*() const {
+            return current;
+        }
+
+        inOrderIterator& operator++() {
+            if (!current->children.empty() && current->children.size() > 1) {
+                Node<T>* node = current->children[1];
+                while (node) {
+                    stk.push(node);
+                    if (!node->children.empty()) {
+                        node = node->children[0];
+                    } else {
+                        node = nullptr;
+                    }
+                }
+            }
+            if (!stk.empty()) {
+                current = stk.top();
+                stk.pop();
+            } else {
+                current = nullptr;
+            }
+            return *this;
+        }
+
+        bool operator!=(const inOrderIterator& other) const {
+            return current != other.current;
+        }
+    };
+
+    inOrderIterator begin_in_order() {
+        return inOrderIterator(root);
+    }
+
+    inOrderIterator end_in_order() {
+        return inOrderIterator(nullptr);
+    }
 };

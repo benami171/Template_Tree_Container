@@ -49,10 +49,12 @@ int main()
     } // prints: 1.4, 1.5, 1.2, 1.6, 1.3, 1.1
     cout << endl;
 
-    // for (auto node = tree.begin_in_order(); node != tree.end_in_order(); ++node)
-    // {
-    //     cout << node->get_value() << endl;
-    // } // prints: 1.4, 1.2, 1.5, 1.1, 1.6, 1.3
+    cout << "In order: ";
+    for (auto node = tree.begin_in_order(); node != tree.end_in_order(); ++node)
+    {
+        cout << (*node)->get_value() << " ";
+    } // prints: 1.4, 1.2, 1.5, 1.1, 1.6, 1.3
+    cout << endl;
 
     // for (auto node = tree.begin_bfs_scan(); node != tree.end_bfs_scan(); ++node)
     // {
