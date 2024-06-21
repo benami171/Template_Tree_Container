@@ -61,6 +61,13 @@ int main()
     //     cout << node->get_value() << endl;
     // } // prints: 1.1, 1.2, 1.3, 1.4, 1.5, 1.6
 
+    cout << "DFS: ";
+    for (auto node = tree.begin_dfs_scan(); node != tree.end_dfs_scan(); ++node)
+    {
+        cout << (*node)->get_value() << " ";
+    } // prints: 1.1, 1.2, 1.3, 1.4, 1.5, 1.6
+    cout << endl;
+
     // for (auto node : tree)
     // {
     //     cout << node.get_value() << endl;
@@ -68,9 +75,9 @@ int main()
 
     // cout << tree; // Should print the graph using GUI.
 
-    // Tree<double,3> three_ary_tree; // 3-ary tree.
-    // Tree<double,4> four_ary_tree; // 4-ary tree.
-    // Tree<float,5> five_ary_tree; // 5-ary tree.
+    //  Tree<double,3> three_ary_tree; // 3-ary tree.
+    // // Tree<double,4> four_ary_tree; // 4-ary tree.
+    // // Tree<float,5> five_ary_tree; // 5-ary tree.
     // three_ary_tree.add_root(root_node);
     // three_ary_tree.add_sub_node(root_node, n1);
     // three_ary_tree.add_sub_node(root_node, n2);

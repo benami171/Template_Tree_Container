@@ -28,10 +28,6 @@ class Tree {
    public:
     explicit Tree() : root(nullptr) {}
 
-    // ~Tree() {
-    //     delete_tree(root);
-    // }
-
     void add_root(Node<T>& node) {
         root = &node;
     }
@@ -43,13 +39,41 @@ class Tree {
             std::cout << "Parent has reached its maximum number of children" << std::endl;
         }
     }
+    class dfs_iterator {
+         private:
+          std::stack<Node<T>*> stk;
+    
+         public:
+          dfs_iterator(Node<T>* root) {
+                if (root) {
+                 stk.push(root);
+                }
+          }
+    
+          Node<T>* operator*() {
+                return stk.top();
+          }
+    
+          dfs_iterator& operator++() {
+                Node<T>* current = stk.top();
+                stk.pop();
+                for (auto it = current->children.rbegin(); it != current->children.rend(); ++it) {
+                 stk.push(*it);
+                }
+                return *this;
+          }
+    
+          bool operator!=(const dfs_iterator& other) const {
+                return !stk.empty();
+          }
+     };
 
-    class pre_order_iter {
+    class pre_order_iterator {
        private:
         std::stack<Node<T>*> nodes_stack;
 
        public:
-        pre_order_iter(Node<T>* root) {
+        pre_order_iterator(Node<T>* root) {
             if (root != nullptr) {
                 nodes_stack.push(root);
             }
@@ -59,7 +83,7 @@ class Tree {
             return nodes_stack.top();
         }
 
-        pre_order_iter& operator++() {
+        pre_order_iterator& operator++() {
             Node<T>* current = nodes_stack.top();
             nodes_stack.pop();
             if (K == 2 && current->children.size() == 2) {
@@ -75,20 +99,13 @@ class Tree {
             return *this;
         }
 
-        bool operator!=(const pre_order_iter& other) const {
+        bool operator!=(const pre_order_iterator& other) const {
             return !nodes_stack.empty();
         }
     };
 
-    pre_order_iter begin_pre_order() {
-        return pre_order_iter(root);
-    }
 
-    pre_order_iter end_pre_order() {
-        return pre_order_iter(nullptr);
-    }
-
-    class PostOrderIterator {
+    class post_order_iterator {
        private:
         Node<T>* current;
         std::stack<Node<T>*> stk;
@@ -104,7 +121,7 @@ class Tree {
         }
 
        public:
-        PostOrderIterator(Node<T>* root) {
+        post_order_iterator(Node<T>* root) {
             push_children(root);
             advance();
         }
@@ -135,47 +152,27 @@ class Tree {
             return current;
         }
 
-        PostOrderIterator& operator++() {
+        post_order_iterator& operator++() {
             advance();
             return *this;
         }
 
-        bool operator!=(const PostOrderIterator& other) const {
+        bool operator!=(const post_order_iterator& other) const {
             return current != other.current;
         }
     };
 
-    PostOrderIterator begin_post_order() {
-        return PostOrderIterator(root);
-    }
 
-    PostOrderIterator end_post_order() {
-        return PostOrderIterator(nullptr);
-    }
-
-    // template <typename T>
-    // class DFS;
-
-    class inOrderIterator {
+    class in_order_iterator {
         //     friend class DFS<T>;  // Make DFS a friend class so it can access private members
 
        private:
         Node<T>* current;
         std::stack<Node<T>*> stk;
 
-        void push_left(Node<T>* node) {
-            while (node) {
-                stk.push(node);
-                if (!node->children.empty()) {
-                    node = node->children[0];
-                } else {
-                    node = nullptr;
-                }
-            }
-        }
 
        public:
-        inOrderIterator(Node<T>* root) {
+        in_order_iterator(Node<T>* root) {
             Node<T>* node = root;
             while (node) {
                 stk.push(node);
@@ -195,7 +192,7 @@ class Tree {
             return current;
         }
 
-        inOrderIterator& operator++() {
+        in_order_iterator& operator++() {
             if (!current->children.empty() && current->children.size() > 1) {
                 Node<T>* node = current->children[1];
                 while (node) {
@@ -216,16 +213,50 @@ class Tree {
             return *this;
         }
 
-        bool operator!=(const inOrderIterator& other) const {
+        bool operator!=(const in_order_iterator& other) const {
             return current != other.current;
         }
     };
 
-    inOrderIterator begin_in_order() {
-        return inOrderIterator(root);
+    class bfs_iterator{
+        private:
+        Node<T>* current;
+        std::deque<Node<T>*> nodes_queue;
+
+        public:
+
+    };
+
+    post_order_iterator begin_post_order() {
+        return post_order_iterator(root);
     }
 
-    inOrderIterator end_in_order() {
-        return inOrderIterator(nullptr);
+    post_order_iterator end_post_order() {
+        return post_order_iterator(nullptr);
     }
+
+    pre_order_iterator begin_pre_order() {
+        return pre_order_iterator(root);
+    }
+
+    pre_order_iterator end_pre_order() {
+        return pre_order_iterator(nullptr);
+    }
+
+    in_order_iterator begin_in_order() {
+        return in_order_iterator(root);
+    }
+
+    in_order_iterator end_in_order() {
+        return in_order_iterator(nullptr);
+    }
+
+    dfs_iterator begin_dfs_scan() {
+        return dfs_iterator(root);
+    }
+
+    dfs_iterator end_dfs_scan() {
+        return dfs_iterator(nullptr);
+    }
+
 };
