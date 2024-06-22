@@ -14,9 +14,9 @@ class Node {
     Node(T value) : value(value) {}
     // Copy Constructor (deep copy)
     
-    Node(const Node<T>& other) : value(other.value) {
+    Node(Node<T>& other) : value(other.value) {
         children.reserve(other.children.size());
-        for (const auto& child : other.children) {
+        for (auto& child : other.children) {
             children.push_back(new Node<T>(*child));
         }
     }

@@ -25,9 +25,6 @@ class Tree {
         if (node == nullptr) {
             return;
         }
-        for (auto child : node->children) {
-            delete_tree(child);
-        }
         delete node;
     }
 
@@ -50,8 +47,8 @@ class Tree {
     }
 
     int get_max_children() const { return max_children; }
+
     void add_root(Node<T>& node) {
-        std::cout << "Adding root node with value: " << node.get_value() << std::endl;
         if(root != nullptr) {
             delete_tree(root);
         }
