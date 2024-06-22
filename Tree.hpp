@@ -49,7 +49,7 @@ class Tree {
     int get_max_children() const { return max_children; }
 
     void add_root(Node<T>& node) {
-        if(root != nullptr) {
+        if (root != nullptr) {
             delete_tree(root);
         }
         Node<T>* newRoot = new Node<T>(node);
@@ -316,9 +316,51 @@ class Tree {
         }
     };
 
+    class min_heap_iterator {
+       private:
+        Node<T>* current;
+        std::queue<Node<T>*> nodesQueue;
+
+       public:
+        // Constructor
+        min_heap_iterator(Node<T>* root) {
+            if (root != nullptr) {
+                nodesQueue.push(root);
+                current = root;  // Initialize current to root
+            }
+        }
+
+        // Access the current element
+        Node<T>* operator*() {
+            return current;
+        }
+
+        Node<T>* operator->() {
+            return current;
+        }
+
+        // Move to the next element
+        min_heap_iterator& operator++() {
+            if (!nodesQueue.empty()) {
+                nodesQueue.pop();  // Pop the current node
+                for (auto child : current->children) {
+                    if (child != nullptr) nodesQueue.push(child);
+                }
+                current = !nodesQueue.empty() ? nodesQueue.front() : nullptr;  // Update current to the next node
+            }
+            return *this;
+        }
+
+        // Check for inequality
+        bool operator!=(const min_heap_iterator& other) const {
+            return current != other.current;
+        }
+    };
+
     using iterator_type = typename std::conditional<K == BINARY, pre_order_iterator, dfs_iterator>::type;
     using iterator_type2 = typename std::conditional<K == BINARY, post_order_iterator, dfs_iterator>::type;
     using iterator_type3 = typename std::conditional<K == BINARY, in_order_iterator, dfs_iterator>::type;
+    using iterator_type4 = typename std::conditional<K == BINARY, min_heap_iterator, dfs_iterator>::type;
 
     iterator_type begin_pre_order() {
         return iterator_type(root);
@@ -358,6 +400,14 @@ class Tree {
 
     bfs_iterator end_bfs_scan() {
         return bfs_iterator(nullptr);
+    }
+
+    iterator_type4 begin_min_heap() {
+        return iterator_type4(root);
+    }
+
+    iterator_type4 end_min_heap() {
+        return iterator_type4(nullptr);
     }
 };
 

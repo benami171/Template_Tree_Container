@@ -65,6 +65,12 @@ int main() {
         }  // prints: 1.1, 1.2, 1.3, 1.4, 1.5, 1.6
         cout << endl;
 
+        cout << "Min Heap: ";
+        for(auto node = tree.begin_min_heap(); node != tree.end_min_heap(); ++node){
+            cout << node->get_value() << " ";
+        } 
+        cout << endl;
+
 
 
     // for (auto node : tree)
