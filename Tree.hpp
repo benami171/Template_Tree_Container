@@ -7,6 +7,7 @@
 #include <string>
 #include <unordered_set>
 #include <vector>
+#include <type_traits>
 
 #include "Node.hpp"
 
@@ -45,6 +46,8 @@ class Tree {
         }
     }
 
+    
+    
     class dfs_iterator {
        private:
         std::stack<Node<T>*> stk;
@@ -79,7 +82,6 @@ class Tree {
     };
 
 class in_order_iterator {
-        //     friend class DFS<T>;  // Make DFS a friend class so it can access private members
 
        private:
         Node<T>* current;
@@ -188,6 +190,7 @@ class in_order_iterator {
         }
     };
 
+
     // POST ORDER FOR BINARY TREE
     class post_order_iterator {
        private:
@@ -294,28 +297,32 @@ class in_order_iterator {
         }
     };
 
-    post_order_iterator begin_post_order() {
-        return post_order_iterator(root);
+    using iterator_type = typename std::conditional<K == BINARY, pre_order_iterator, dfs_iterator>::type;
+    using iterator_type2 = typename std::conditional<K == BINARY, post_order_iterator, dfs_iterator>::type;
+    using iterator_type3 = typename std::conditional<K == BINARY, in_order_iterator, dfs_iterator>::type;
+
+    iterator_type begin_pre_order() {
+        return iterator_type(root);
     }
 
-    post_order_iterator end_post_order() {
-        return post_order_iterator(nullptr);
+    iterator_type end_pre_order() {
+        return iterator_type(nullptr);
     }
 
-    pre_order_iterator begin_pre_order() {
-        return pre_order_iterator(root);
+    iterator_type2 begin_post_order() {
+        return iterator_type2(root);
     }
 
-    pre_order_iterator end_pre_order() {
-        return pre_order_iterator(nullptr);
+    iterator_type2 end_post_order() {
+        return iterator_type2(nullptr);
     }
 
-    in_order_iterator begin_in_order() {
-        return in_order_iterator(root);
+    iterator_type3 begin_in_order() {
+        return iterator_type3(root);
     }
 
-    in_order_iterator end_in_order() {
-        return in_order_iterator(nullptr);
+    iterator_type3 end_in_order() {
+        return iterator_type3(nullptr);
     }
 
     dfs_iterator begin_dfs_scan() {
@@ -333,6 +340,7 @@ class in_order_iterator {
     bfs_iterator end_bfs_scan() {
         return bfs_iterator(nullptr);
     }
+
 };
 
 // tree template class for K-ARY tree K>2
