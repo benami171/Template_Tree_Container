@@ -3,36 +3,52 @@
 #include <iostream>
 #include <vector>
 
-template<typename T>
-class Node{
-    public:
+template <typename T>
+class Node {
+
+   public:
     T value;
     std::vector<Node<T>*> children;
-
-    Node(T value) : value(value) {}
-
-    const T &get_value() const {return value;}
-    const std::vector<Node<T>*> &get_children() const {return children;}
     
-    bool operator<(const Node<T>& other) const
-    {
-        return value < other.value;
+    // Constructor
+    Node(T value) : value(value) {}
+    // Copy Constructor (deep copy)
+    
+    Node(const Node<T>& other) : value(other.value) {
+        children.reserve(other.children.size());
+        for (const auto& child : other.children) {
+            children.push_back(new Node<T>(*child));
+        }
     }
 
-    bool operator>(const Node<T>& other) const
-    {
-        return value > other.value;
+    // Destructor
+    ~Node() {
+        for (auto child : children) {
+            delete child;
+        }
     }
 
-    bool operator==(const Node<T>& other) const
-    {
-        return (!(value < other.value)) && (!(value > other.value));
+    const T& get_value() const { return value; }
+    const std::vector<Node<T>*>& get_children() const { return children; }
+
+    Node& operator=(const Node<T>& other) {
+        if (this != &other) {  // protect against self-assignment
+            value = other.value;
+            // Deep copy of children
+            for (auto child : children) {
+                delete child;
+            }
+            children.clear();
+            children.reserve(other.children.size());
+            for (const auto& child : other.children) {
+                children.push_back(new Node<T>(*child));
+            }
+        }
+        return *this;
     }
 
-    bool operator!=(const Node<T>& other) const
-    {
-        return !(*this == other);
-    }
-
-
+    bool operator<(const Node<T>& other) const { return value < other.value; }
+    bool operator>(const Node<T>& other) const { return value > other.value; }
+    bool operator==(const Node<T>& other) const { return value == other.value; }
+    bool operator!=(const Node<T>& other) const { return !(*this == other); }
 };

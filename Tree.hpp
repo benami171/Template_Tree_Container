@@ -5,9 +5,9 @@
 #include <queue>
 #include <stack>
 #include <string>
+#include <type_traits>
 #include <unordered_set>
 #include <vector>
-#include <type_traits>
 
 #include "Node.hpp"
 
@@ -31,23 +31,48 @@ class Tree {
         delete node;
     }
 
+    // Helper method to find a node
+    Node<T>* find_node(Node<T>* node, const T& value) {
+        if (node == nullptr) return nullptr;
+        if (node->value == value) return node;
+        for (auto child : node->children) {
+            Node<T>* found = find_node(child, value);
+            if (found != nullptr) return found;
+        }
+        return nullptr;
+    }
+
    public:
     explicit Tree() : root(nullptr) {}
+
+    ~Tree() {
+        delete_tree(root);
+    }
+
     int get_max_children() const { return max_children; }
     void add_root(Node<T>& node) {
-        root = &node;
+        std::cout << "Adding root node with value: " << node.get_value() << std::endl;
+        if(root != nullptr) {
+            delete_tree(root);
+        }
+        Node<T>* newRoot = new Node<T>(node);
+        root = newRoot;
     }
 
     void add_sub_node(Node<T>& parent, Node<T>& child) {
-        if (parent.children.size() < K) {
-            parent.children.push_back(&child);
+        Node<T>* parentNode = find_node(root, parent.get_value());
+        if (parentNode == nullptr) {
+            throw std::runtime_error("Parent node not found in the tree");
+        }
+
+        if (parentNode->children.size() < K) {
+            Node<T>* newChild = new Node<T>(child);
+            parentNode->children.push_back(newChild);
         } else {
             throw std::runtime_error("Parent has reached its maximum number of children");
         }
     }
 
-    
-    
     class dfs_iterator {
        private:
         std::stack<Node<T>*> stk;
@@ -81,8 +106,7 @@ class Tree {
         }
     };
 
-class in_order_iterator {
-
+    class in_order_iterator {
        private:
         Node<T>* current;
         std::stack<Node<T>*> stk;
@@ -190,7 +214,6 @@ class in_order_iterator {
         }
     };
 
-
     // POST ORDER FOR BINARY TREE
     class post_order_iterator {
        private:
@@ -252,7 +275,6 @@ class in_order_iterator {
             return current != other.current;
         }
     };
-
 
     class bfs_iterator {
        private:
@@ -340,13 +362,9 @@ class in_order_iterator {
     bfs_iterator end_bfs_scan() {
         return bfs_iterator(nullptr);
     }
-
 };
 
 // tree template class for K-ARY tree K>2
-
-
-
 
 // // pre order for K-ARY tree
 // class pre_order_iterator {
@@ -488,62 +506,62 @@ class in_order_iterator {
 // };
 
 // // in order for K-ARY tree
-    // class in_order_iterator {
-    //     //     friend class DFS<T>;  // Make DFS a friend class so it can access private members
+// class in_order_iterator {
+//     //     friend class DFS<T>;  // Make DFS a friend class so it can access private members
 
-    //    private:
-    //     Node<T>* current;
-    //     std::stack<Node<T>*> stk;
-    //     dfs_iterator dfs_iter;
-    //     int maxChildren;
+//    private:
+//     Node<T>* current;
+//     std::stack<Node<T>*> stk;
+//     dfs_iterator dfs_iter;
+//     int maxChildren;
 
-    //    public:
-    //     in_order_iterator(Node<T>* root, int maxChildren) : dfs_iter(root), maxChildren(maxChildren) {
-    //         Node<T>* node = root;
-    //         while (node) {
-    //             stk.push(node);
-    //             if (!node->children.empty()) {
-    //                 node = node->children[LEFT_CHILD];
-    //             } else {
-    //                 node = nullptr;
-    //             }
-    //         }
-    //         if (!stk.empty()) {
-    //             current = stk.top();
-    //             stk.pop();
-    //         }
-    //     }
+//    public:
+//     in_order_iterator(Node<T>* root, int maxChildren) : dfs_iter(root), maxChildren(maxChildren) {
+//         Node<T>* node = root;
+//         while (node) {
+//             stk.push(node);
+//             if (!node->children.empty()) {
+//                 node = node->children[LEFT_CHILD];
+//             } else {
+//                 node = nullptr;
+//             }
+//         }
+//         if (!stk.empty()) {
+//             current = stk.top();
+//             stk.pop();
+//         }
+//     }
 
-    //     Node<T>* operator*() const {
-    //         return current;
-    //     }
+//     Node<T>* operator*() const {
+//         return current;
+//     }
 
-    //     Node<T>* operator->() const {
-    //         return current;
-    //     }
+//     Node<T>* operator->() const {
+//         return current;
+//     }
 
-    //     in_order_iterator& operator++() {
-    //         if (!current->children.empty() && current->children.size() > 1) {
-    //             Node<T>* node = current->children[RIGHT_CHILD];
-    //             while (node) {
-    //                 stk.push(node);
-    //                 if (!node->children.empty()) {
-    //                     node = node->children[LEFT_CHILD];
-    //                 } else {
-    //                     node = nullptr;
-    //                 }
-    //             }
-    //         }
-    //         if (!stk.empty()) {
-    //             current = stk.top();
-    //             stk.pop();
-    //         } else {
-    //             current = nullptr;
-    //         }
-    //         return *this;
-    //     }
+//     in_order_iterator& operator++() {
+//         if (!current->children.empty() && current->children.size() > 1) {
+//             Node<T>* node = current->children[RIGHT_CHILD];
+//             while (node) {
+//                 stk.push(node);
+//                 if (!node->children.empty()) {
+//                     node = node->children[LEFT_CHILD];
+//                 } else {
+//                     node = nullptr;
+//                 }
+//             }
+//         }
+//         if (!stk.empty()) {
+//             current = stk.top();
+//             stk.pop();
+//         } else {
+//             current = nullptr;
+//         }
+//         return *this;
+//     }
 
-    //     bool operator!=(const in_order_iterator& other) const {
-    //         return current != other.current;
-    //     }
-    // };
+//     bool operator!=(const in_order_iterator& other) const {
+//         return current != other.current;
+//     }
+// };
