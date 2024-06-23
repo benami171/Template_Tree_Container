@@ -2,18 +2,26 @@
 
 #include <iostream>
 #include <vector>
+#include <type_traits>
+#include "complex.hpp"
+
+using namespace std;
 
 template <typename T>
 class Node {
-
    public:
     T value;
-    std::vector<Node<T>*> children;
-    
+     vector<Node<T>*> children;
+
     // Constructor
     Node(T value) : value(value) {}
-    // Copy Constructor (deep copy)
     
+    // Constructor for complex numbers, enabled only if T is Complex
+    template <typename U = T>
+    Node(double real, double imag, typename enable_if<is_same<U, Complex>::value>::type* = 0)
+        : value(real, imag) {}
+
+    // Copy Constructor (deep copy)
     Node(Node<T>& other) : value(other.value) {
         children.reserve(other.children.size());
         for (auto& child : other.children) {
@@ -29,7 +37,7 @@ class Node {
     }
 
     const T& get_value() const { return value; }
-    const std::vector<Node<T>*>& get_children() const { return children; }
+    const  vector<Node<T>*>& get_children() const { return children; }
 
     Node& operator=(const Node<T>& other) {
         if (this != &other) {  // protect against self-assignment

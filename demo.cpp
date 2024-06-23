@@ -4,9 +4,8 @@
 
 #include <iostream>
 #include <string>
-
-#include "Node.hpp"
-#include "Tree.hpp"
+#include "node.hpp"
+#include "tree.hpp"
 
 using namespace std;
 

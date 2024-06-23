@@ -9,7 +9,7 @@
 #include <unordered_set>
 #include <vector>
 
-#include "Node.hpp"
+#include "node.hpp"
 
 #define BINARY 2
 #define LEFT_CHILD 0

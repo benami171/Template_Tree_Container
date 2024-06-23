@@ -1,15 +1,40 @@
 #ifndef COMPLEX_HPP
 #define COMPLEX_HPP
 
-#include <iostream>
 #include <cmath>
+#include <iostream>
 
 class Complex {
-public:
+   public:
     double real;
     double imag;
 
+    Complex() : real(0.0), imag(0.0) {}
     Complex(double r = 0.0, double i = 0.0) : real(r), imag(i) {}
+    // Copy constructor
+    Complex(const Complex& other) : real(other.real), imag(other.imag) {}
+
+    // Destructor
+    ~Complex() {}
+
+    // Assignment operator
+    Complex& operator=(const Complex& other) {
+        if (this != &other) {
+            real = other.real;
+            imag = other.imag;
+        }
+        return *this;
+    }
+
+    // Equality operators
+    bool operator==(const Complex& other) const {
+        return (real == other.real) && (imag == other.imag);
+    }
+
+    // Inequality operator
+    bool operator!=(const Complex& other) const {
+        return !(*this == other);
+    }
 
     // Addition
     Complex operator+(const Complex& other) const {
@@ -35,7 +60,7 @@ public:
 
     // Magnitude
     double magnitude() const {
-        return sqrt(real * real + imag * imag);
+        return std::hypot(real, imag);
     }
 
     double magnitudeSquared() const {
@@ -47,10 +72,27 @@ public:
         return atan2(imag, real);
     }
 
+    // Comparison operators (for the sake of completeness)
+    bool operator<(const Complex& other) const {
+        return std::hypot(real, imag) < std::hypot(other.real, other.imag);
+    }
+
+    bool operator>(const Complex& other) const {
+        return std::hypot(real, imag) > std::hypot(other.real, other.imag);
+    }
+
+    bool operator<=(const Complex& other) const {
+        return !(*this > other);
+    }
+
+    bool operator>=(const Complex& other) const {
+        return !(*this < other);
+    }
+
     friend std::ostream& operator<<(std::ostream& os, const Complex& c) {
-        os << "(" << c.real << ", " << c.imag << ")";
+        os << "{" << c.real << "," << c.imag << "}";
         return os;
     }
 };
 
-#endif // COMPLEX_HPP
+#endif  // COMPLEX_HPP
