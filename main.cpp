@@ -69,17 +69,18 @@ int main() {
 
 
 
-    auto heapRange = tree.myHeap();
-    cout << "Min Heap: ";
-    for (auto node = heapRange.first; node != heapRange.second; ++node) {
+    // auto heapRange = tree.myHeap();
+    // cout << "Min Heap: ";
+    // for (auto node = heapRange.first; node != heapRange.second; ++node) {
+    //     cout << node->get_value() << " ";
+    // }
+    // cout << endl;
+    cout << "Default iterator: " ;
+    for (auto node : tree)
+    {
         cout << node->get_value() << " ";
-    }
+    } // same as BFS: 1.1, 1.2, 1.3, 1.4, 1.5, 1.6
     cout << endl;
-
-    // for (auto node : tree)
-    // {
-    //     cout << node.get_value() << endl;
-    // } // same as BFS: 1.1, 1.2, 1.3, 1.4, 1.5, 1.6
 
     // cout << tree; // Should print the graph using GUI.
     Tree<double, 3> three_ary_tree;  // 3-ary tree.

@@ -402,6 +402,14 @@ class Tree {
         return bfs_iterator(nullptr);
     }
 
+    bfs_iterator begin() {
+        return begin_bfs_scan();
+    }
+
+    bfs_iterator end() {
+        return end_bfs_scan();
+    }
+
     iterator_type4 begin_min_heap() {
         return iterator_type4(root);
     }
