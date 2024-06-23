@@ -409,4 +409,8 @@ class Tree {
     iterator_type4 end_min_heap() {
         return iterator_type4(nullptr);
     }
+
+    std::pair<iterator_type4, iterator_type4> myHeap() {
+        return std::make_pair(begin_min_heap(), end_min_heap());
+    }
 };
