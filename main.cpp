@@ -1,3 +1,6 @@
+#include <QApplication>
+#include <QMainWindow>
+#include "TreeWidget.hpp"
 #include "node.hpp"
 #include "tree.hpp"
 #include <iostream>
@@ -7,6 +10,7 @@
 using namespace std;
 
 int main() {
+
     Node<double> root_node = Node(1.1);
     Tree<double> tree;  // Binary tree that contains doubles.
     tree.add_root(root_node);
