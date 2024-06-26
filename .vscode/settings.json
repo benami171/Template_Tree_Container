@@ -57,6 +57,10 @@
         "thread": "cpp",
         "variant": "cpp",
         "complex": "cpp",
-        "sstream": "cpp"
+        "sstream": "cpp",
+        "qapplication": "cpp",
+        "qgraphicsview": "cpp",
+        "qgraphicsellipseitem": "cpp",
+        "qgraphicstextitem": "cpp"
     }
 }
