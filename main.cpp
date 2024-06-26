@@ -1,6 +1,5 @@
 #include <QApplication>
 #include <QMainWindow>
-#include "TreeWidget.hpp"
 #include "node.hpp"
 #include "tree.hpp"
 #include <iostream>
