@@ -3,7 +3,7 @@
 ######################################################################
 
 TEMPLATE = app
-TARGET = System_Programming2_Exe4
+TARGET = Main
 INCLUDEPATH += .
 
 # You can make your code fail to compile if you use deprecated APIs.

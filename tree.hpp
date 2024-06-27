@@ -70,6 +70,8 @@ class Tree {
         }
     }
 
+    Node<T>* get_root() { return root; }
+
     class dfs_iterator {
        private:
         std::stack<Node<T>*> stk;
