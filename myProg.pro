@@ -11,7 +11,6 @@ CONFIG -= app_bundle
 CONFIG(tree): {
     TARGET = tree
     tree.commands = ./tree
-    # Add any specific configurations for the tree build here
 }
 
 CONFIG(test): {
