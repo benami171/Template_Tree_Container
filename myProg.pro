@@ -10,6 +10,7 @@ CONFIG -= app_bundle
 # Custom configurations
 CONFIG(tree): {
     TARGET = tree
+    tree.commands = ./tree
     # Add any specific configurations for the tree build here
 }
 
@@ -22,5 +23,5 @@ CONFIG(test): {
 
 # Custom run target for development convenience
 run.target = run
-run.commands = $$TARGET
+run.commands = ./$$TARGET
 QMAKE_EXTRA_TARGETS += run
