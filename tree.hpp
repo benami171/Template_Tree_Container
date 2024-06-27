@@ -1,5 +1,10 @@
 #pragma once
-
+#include <QApplication> 
+#include <QGraphicsScene>
+#include <QGraphicsView>
+#include <QGraphicsEllipseItem>
+#include <QGraphicsTextItem>
+#include <QMainWindow> 
 #include <algorithm>
 #include <iostream>
 #include <queue>
@@ -28,7 +33,8 @@ class Tree {
         delete node;
     }
 
-    // Helper method to find a node
+    // Helper method to find a node . given a tree and a value to look for.
+    // Returns the node if found, nullptr otherwise.
     Node<T>* find_node(Node<T>* node, const T& value) {
         if (node == nullptr) return nullptr;
         if (node->value == value) return node;
@@ -424,3 +430,41 @@ class Tree {
         return std::make_pair(begin_min_heap(), end_min_heap());
     }
 };
+
+template<typename T>
+void drawTree(QGraphicsScene* scene, Node<T>* node, int x, int y, int offset) {
+    if (!node) return;
+
+    QGraphicsEllipseItem* ellipse = scene->addEllipse(x - 20, y - 20, 40, 40);
+    QGraphicsTextItem* text = scene->addText(QString::number(node->get_value()));
+    text->setPos(x - text->boundingRect().width() / 2, y - text->boundingRect().height() / 2);
+
+    int childIndex = 0;
+    for (auto child : node->get_children()) {
+        int childX = x + (childIndex - node->get_children().size() / 2.0) * offset;
+        int childY = y + 60;
+        scene->addLine(x, y, childX, childY);
+        drawTree(scene, child, childX, childY, offset / 2);
+        childIndex++;
+    }
+}
+
+template<typename T>
+ostream& operator<<(ostream& os, Tree<T>& tree) {
+    int argc = 0;
+    char* argv[] = { nullptr };
+    QApplication app(argc, argv);
+    QMainWindow window;
+
+    auto* scene = new QGraphicsScene(&window);
+    auto* view = new QGraphicsView(scene, &window);
+    window.setCentralWidget(view);
+    view->setSceneRect(0, 0, 800, 600);
+
+    drawTree(scene, tree.get_root(), 400, 30, 200);
+
+    window.show();
+    app.exec();
+
+    return os;
+}
