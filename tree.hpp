@@ -435,7 +435,7 @@ template<typename T>
 void drawTree(QGraphicsScene* scene, Node<T>* node, int x, int y, int offset) {
     if (!node) return;
 
-    QGraphicsEllipseItem* ellipse = scene->addEllipse(x - 20, y - 20, 40, 40);
+ //   QGraphicsEllipseItem* ellipse = scene->addEllipse(x - 20, y - 20, 40, 40);
     QGraphicsTextItem* text = scene->addText(QString::number(node->get_value()));
     text->setPos(x - text->boundingRect().width() / 2, y - text->boundingRect().height() / 2);
 
