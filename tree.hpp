@@ -17,6 +17,7 @@
 #include <type_traits>
 #include <unordered_set>
 #include <vector>
+
 #include "node.hpp"
 
 #define BINARY 2
@@ -166,20 +167,21 @@ class Tree {
         }
     };
 
-    // pre order for BINARY tree
+    //   pre order for BINARY tree
     class pre_order_iterator {
        private:
         std::stack<Node<T>*> nodes_stack;
 
        public:
         pre_order_iterator(Node<T>* root) {
+            nodes_stack.emplace(nullptr);  // For the end
             if (root != nullptr) {
-                nodes_stack.push(root);
+                nodes_stack.emplace(root);
             }
         }
 
         Node<T>* operator*() const {
-            return nodes_stack.top();
+            return nodes_stack.top()->get_value();
         }
 
         Node<T>* operator->() const {
@@ -189,21 +191,33 @@ class Tree {
         pre_order_iterator& operator++() {
             Node<T>* current = nodes_stack.top();
             nodes_stack.pop();
-            if (current->children.size() == BINARY) {
-                // For binary trees, push the right child first, then the left child
-                nodes_stack.push(current->children[RIGHT_CHILD]);
-                nodes_stack.push(current->children[LEFT_CHILD]);
-            } else {
-                // For non-binary trees, push all children in reverse order
-                for (auto it = current->children.rbegin(); it != current->children.rend(); ++it) {
-                    nodes_stack.push(*it);
+
+            if (current->children.size() > 1) {
+                if (current->children[1] != nullptr) {
+                    nodes_stack.emplace(current->children[1]);
                 }
             }
+            if (current->children.size() > 0) {
+                if (current->children[0] != nullptr) {
+                    nodes_stack.emplace(current->children[0]);
+                }
+            }
+
             return *this;
         }
 
+        bool operator==(const pre_order_iterator& other) const {
+            if (nodes_stack.empty() && other.nodes_stack.empty()) {
+                return true;
+            }
+            if (nodes_stack.empty() || other.nodes_stack.empty()) {
+                return false;
+            }
+            return nodes_stack.top() == other.nodes_stack.top();
+        }
+
         bool operator!=(const pre_order_iterator& other) const {
-            return !nodes_stack.empty();
+            return !(*this == other);
         }
     };
 
