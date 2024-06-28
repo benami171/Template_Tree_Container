@@ -24,3 +24,4 @@ test.target = test
 test.commands = ./Test
 test.depends = Test
 QMAKE_EXTRA_TARGETS += tree test
+QMAKE_CLEAN += Test Prog .qmake.stash *.o
