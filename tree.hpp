@@ -73,8 +73,8 @@ class Tree {
             }
         }
 
-        Node<T>* operator*() const {
-            return stk.top();
+        T& operator*() const {
+            return stk.top()->get_value();
         }
 
         Node<T>* operator->() const {
@@ -91,7 +91,9 @@ class Tree {
         }
 
         bool operator==(const dfs_iterator& other) const {
-            return stk.size() == other.stk.size();
+            if (stk.empty() && other.stk.empty()) return true;
+            if (stk.empty() || other.stk.empty()) return false;
+            return stk.top() == other.stk.top();
         }
         bool operator!=(const dfs_iterator& other) const {
             return !(*this == other);
@@ -266,7 +268,7 @@ class Tree {
         }
 
         Node<T>* operator*() const {
-            return current;
+            return current->get_value();
         }
 
         Node<T>* operator->() const {
@@ -309,7 +311,7 @@ class Tree {
         }
 
         Node<T>* operator*() const {
-            return current;
+            return current->get_value();
         }
 
         Node<T>* operator->() const {
@@ -340,9 +342,8 @@ class Tree {
             }
         }
 
-        // Access the current element
-        Node<T>* operator*() {
-            return current;
+        T& operator*() {
+            return current->get_value();
         }
 
         Node<T>* operator->() {
