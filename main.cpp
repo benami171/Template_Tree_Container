@@ -23,14 +23,13 @@ int main() {
     Node<double> n4(1.5);
     Node<double> n5(1.6);
     Tree<double> tree;
-    tree.add_root(root_node);
 
-    tree.add_sub_node(root_node, n1);
-    tree.add_sub_node(root_node, n2);
-    tree.add_sub_node(n1, n3);
-    tree.add_sub_node(n1, n4);
-    tree.add_sub_node(n2, n5);
-
+    tree.add_root(&root_node);
+    tree.add_sub_node(&root_node, &n1);
+    tree.add_sub_node(&root_node, &n2);
+    tree.add_sub_node(&n1, &n3);
+    tree.add_sub_node(&n1, &n4);
+    tree.add_sub_node(&n2, &n5);
 
 
     cout << "DFS: ";
@@ -75,8 +74,6 @@ int main() {
         cout << node->get_value() << " ";
     } // same as BFS: 1.1, 1.2, 1.3, 1.4, 1.5, 1.6
     cout << endl;
-
-    cout << tree << endl;
 }
 {
     Node<Complex> c_root(Complex(1.1, 2.0));
@@ -86,13 +83,13 @@ int main() {
     Node<Complex> c4(Complex(1.5));
     Node<Complex> c5(Complex(1.6));
     Tree<Complex> complex_tree;  // Binary tree that contains Complex numbers.
-    complex_tree.add_root(c_root);
 
-    complex_tree.add_sub_node(c_root, c1);
-    complex_tree.add_sub_node(c_root, c2);
-    complex_tree.add_sub_node(c1, c3);
-    complex_tree.add_sub_node(c1, c4);
-    complex_tree.add_sub_node(c2, c5);
+    complex_tree.add_root(&c_root);
+    complex_tree.add_sub_node(&c_root, &c1);
+    complex_tree.add_sub_node(&c_root, &c2);
+    complex_tree.add_sub_node(&c1, &c3);
+    complex_tree.add_sub_node(&c1, &c4);
+    complex_tree.add_sub_node(&c2, &c5);
 
     // The tree should look like:
     /**
@@ -149,12 +146,21 @@ int main() {
     Node<double> n4(1.5);
     Node<double> n5(1.6);
     Tree<double, 3> three_ary_tree;  // 3-ary tree.
-    three_ary_tree.add_root(root_node);
-    three_ary_tree.add_sub_node(root_node, n1);
-    three_ary_tree.add_sub_node(root_node, n2);
-    three_ary_tree.add_sub_node(root_node, n3);
-    three_ary_tree.add_sub_node(n1, n4);
-    three_ary_tree.add_sub_node(n2, n5);
+    three_ary_tree.add_root(&root_node);
+    three_ary_tree.add_sub_node(&root_node, &n1);
+    three_ary_tree.add_sub_node(&root_node, &n2);
+    three_ary_tree.add_sub_node(&root_node, &n3);
+    three_ary_tree.add_sub_node(&n1, &n4);
+    three_ary_tree.add_sub_node(&n2, &n5);
+
+    // The tree should look like:
+    /**
+     *      root = 1.1
+     *          /  |  \
+     *         1.2 1.3 1.4
+     *         /   |
+     *       1.5   1.6
+     */
 
     cout << "Pre order-3ary: ";
     for (auto node = three_ary_tree.begin_pre_order(); node != three_ary_tree.end_pre_order(); ++node) {

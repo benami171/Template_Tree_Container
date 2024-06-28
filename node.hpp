@@ -17,25 +17,33 @@ class Node {
     // Constructor
     Node(T value) : value(value) {}
 
-    // Constructor for complex numbers, enabled only if T is Complex
-    template <typename U = T>
-    Node(double real, double imag, typename enable_if<is_same<U, Complex>::value>::type* = 0)
-        : value(real, imag) {}
+    // // Constructor for complex numbers, enabled only if T is Complex
+    // template <typename U = T>
+    // Node(double real, double imag, typename enable_if<is_same<U, Complex>::value>::type* = 0)
+    //     : value(real, imag) {}
 
-    // Copy Constructor (deep copy)
-    Node(Node<T>& other) : value(other.value) {
-        children.reserve(other.children.size());
-        for (auto& child : other.children) {
-            children.push_back(new Node<T>(*child));
-        }
+    // // Copy Constructor (deep copy)
+    // Node(Node<T>& other) : value(other.value) {
+    //     children.reserve(other.children.size());
+    //     for (auto& child : other.children) {
+    //         children.push_back(new Node<T>(*child));
+    //     }
+    // }
+
+    // // Destructor
+    // ~Node() {
+    //     for (auto child : children) {
+    //         delete child;
+    //     }
+    // }
+    
+    void add_child(Node<T> *child) {
+        children.push_back(child);
+    }
+    void delete_children() {
+        children.clear();
     }
 
-    // Destructor
-    ~Node() {
-        for (auto child : children) {
-            delete child;
-        }
-    }
 
     const T& get_value() const { return value; }
 
@@ -61,7 +69,7 @@ class Node {
     bool operator>(const Node<T>& other) const { return value > other.value; }
     bool operator==(const Node<T>& other) const { return value == other.value; }
     bool operator!=(const Node<T>& other) const { return !(*this == other); }
-    
+
     string to_string() const {
         return value_to_string(value);
     }

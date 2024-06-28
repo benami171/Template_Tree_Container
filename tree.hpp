@@ -30,12 +30,12 @@ class Tree {
     Node<T>* root;
     int max_children = K;
 
-    void delete_tree(Node<T>* node) {
-        if (node == nullptr) {
-            return;
-        }
-        delete node;
-    }
+    // void delete_tree(Node<T>* node) {
+    //     if (node == nullptr) {
+    //         return;
+    //     }
+    //     delete node;
+    // }
 
     // Helper method to find a node . given a tree and a value to look for.
     // Returns the node if found, nullptr otherwise.
@@ -52,34 +52,53 @@ class Tree {
    public:
     explicit Tree() : root(nullptr) {}
 
+    // ~Tree() {
+    //     delete_tree(root);
+    // }
+
     ~Tree() {
-        delete_tree(root);
+        // loop through the tree using the bfs iterator
+        // and use delete_children of node.hpp to delete the children of each node
+        for (auto node = begin_bfs_scan(); node != end_bfs_scan(); ++node) {
+            node->delete_children();
+        }
     }
 
     int get_max_children() const { 
         return max_children; 
     }
 
-    void add_root(Node<T>& node) {
-        if (root != nullptr) {
-            delete_tree(root);
-        }
-        Node<T>* newRoot = new Node<T>(node);
-        root = newRoot;
+    // void add_root(Node<T>& node) {
+    //     if (root != nullptr) {
+    //         delete_tree(root);
+    //     }
+    //     Node<T>* newRoot = new Node<T>(node);
+    //     root = newRoot;
+    // }
+
+    void add_root(Node<T>* root) {
+        this->root = root;
     }
 
-    void add_sub_node(Node<T>& parent, Node<T>& child) {
-        Node<T>* parentNode = find_node(root, parent.get_value());
-        if (parentNode == nullptr) {
-            throw std::runtime_error("Parent node not found in the tree");
-        }
+    // void add_sub_node(Node<T>& parent, Node<T>& child) {
+    //     Node<T>* parentNode = find_node(root, parent.get_value());
+    //     if (parentNode == nullptr) {
+    //         throw std::runtime_error("Parent node not found in the tree");
+    //     }
+    //
+    //     if (parentNode->children.size() < K) {
+    //         Node<T>* newChild = new Node<T>(child);
+    //         parentNode->children.push_back(newChild);
+    //     } else {
+    //         throw std::runtime_error("Parent has reached its maximum number of children");
+    //     }
+    // }
 
-        if (parentNode->children.size() < K) {
-            Node<T>* newChild = new Node<T>(child);
-            parentNode->children.push_back(newChild);
-        } else {
-            throw std::runtime_error("Parent has reached its maximum number of children");
+    void add_sub_node(Node<T>* parent, Node<T>* child) {
+        if (parent->get_children().size() >= K) {
+            throw std::runtime_error("Parent has reached its maximum number of children");  
         }
+        parent->add_child(child);
     }
 
     Node<T>* get_root() { return root; }
