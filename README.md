@@ -12,7 +12,8 @@
     using iterator_type = typename std::conditional<K == BINARY, pre_order_iterator, dfs_iterator>::type;
     using iterator_type2 = typename std::conditional<K == BINARY, post_order_iterator, dfs_iterator>::type;
     using iterator_type3 = typename std::conditional<K == BINARY, in_order_iterator, dfs_iterator>::type;
-    using iterator_type4 = typename std::conditional<K == BINARY, min_heap_iterator, dfs_iterator>::type;```
+    using iterator_type4 = typename std::conditional<K == BINARY, min_heap_iterator, dfs_iterator>::type;
+```
 
 
 
