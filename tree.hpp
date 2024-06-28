@@ -1,14 +1,14 @@
 #pragma once
 #include <QApplication>
-#include <QGraphicsEllipseItem>
-#include <QFont>
-#include <QPen> 
-#include <QString>
 #include <QColor>
+#include <QFont>
+#include <QGraphicsEllipseItem>
 #include <QGraphicsScene>
 #include <QGraphicsTextItem>
 #include <QGraphicsView>
 #include <QMainWindow>
+#include <QPen>
+#include <QString>
 #include <algorithm>
 #include <iostream>
 #include <queue>
@@ -17,7 +17,6 @@
 #include <type_traits>
 #include <unordered_set>
 #include <vector>
-
 #include "node.hpp"
 
 #define BINARY 2
@@ -29,13 +28,6 @@ class Tree {
    private:
     Node<T>* root;
     int max_children = K;
-
-    // void delete_tree(Node<T>* node) {
-    //     if (node == nullptr) {
-    //         return;
-    //     }
-    //     delete node;
-    // }
 
     // Helper method to find a node . given a tree and a value to look for.
     // Returns the node if found, nullptr otherwise.
@@ -52,51 +44,17 @@ class Tree {
    public:
     explicit Tree() : root(nullptr) {}
 
-    // ~Tree() {
-    //     delete_tree(root);
-    // }
-
-    ~Tree() {
-        // loop through the tree using the bfs iterator
-        // and use delete_children of node.hpp to delete the children of each node
-        for (auto node = begin_bfs_scan(); node != end_bfs_scan(); ++node) {
-            node->delete_children();
-        }
+    int get_max_children() const {
+        return max_children;
     }
-
-    int get_max_children() const { 
-        return max_children; 
-    }
-
-    // void add_root(Node<T>& node) {
-    //     if (root != nullptr) {
-    //         delete_tree(root);
-    //     }
-    //     Node<T>* newRoot = new Node<T>(node);
-    //     root = newRoot;
-    // }
 
     void add_root(Node<T>* root) {
         this->root = root;
     }
 
-    // void add_sub_node(Node<T>& parent, Node<T>& child) {
-    //     Node<T>* parentNode = find_node(root, parent.get_value());
-    //     if (parentNode == nullptr) {
-    //         throw std::runtime_error("Parent node not found in the tree");
-    //     }
-    //
-    //     if (parentNode->children.size() < K) {
-    //         Node<T>* newChild = new Node<T>(child);
-    //         parentNode->children.push_back(newChild);
-    //     } else {
-    //         throw std::runtime_error("Parent has reached its maximum number of children");
-    //     }
-    // }
-
     void add_sub_node(Node<T>* parent, Node<T>* child) {
-        if (parent->get_children().size() >= K) {
-            throw std::runtime_error("Parent has reached its maximum number of children");  
+        if (parent->get_children().size() >= (size_t)max_children) {
+            throw std::runtime_error("Parent has reached its maximum number of children");
         }
         parent->add_child(child);
     }
@@ -131,8 +89,11 @@ class Tree {
             return *this;
         }
 
+        bool operator==(const dfs_iterator& other) const {
+            return stk.size() == other.stk.size();
+        }
         bool operator!=(const dfs_iterator& other) const {
-            return !stk.empty();
+            return !(*this == other);
         }
     };
 
@@ -197,7 +158,9 @@ class Tree {
             }
             return *this;
         }
-
+        bool operator==(const in_order_iterator& other) const {
+            return current == other.current;
+        }
         bool operator!=(const in_order_iterator& other) const {
             return current != other.current;
         }
@@ -396,7 +359,7 @@ class Tree {
     using iterator_type4 = typename std::conditional<K == BINARY, min_heap_iterator, dfs_iterator>::type;
 
     iterator_type begin_pre_order() {
-        return iterator_type(root);
+        return iterator_type(this->root);
     }
 
     iterator_type end_pre_order() {
@@ -404,7 +367,7 @@ class Tree {
     }
 
     iterator_type2 begin_post_order() {
-        return iterator_type2(root);
+        return iterator_type2(this->root);
     }
 
     iterator_type2 end_post_order() {
@@ -412,7 +375,7 @@ class Tree {
     }
 
     iterator_type3 begin_in_order() {
-        return iterator_type3(root);
+        return iterator_type3(this->root);
     }
 
     iterator_type3 end_in_order() {
@@ -420,7 +383,7 @@ class Tree {
     }
 
     dfs_iterator begin_dfs_scan() {
-        return dfs_iterator(root);
+        return dfs_iterator(this->root);
     }
 
     dfs_iterator end_dfs_scan() {
@@ -428,23 +391,23 @@ class Tree {
     }
 
     bfs_iterator begin_bfs_scan() {
-        return bfs_iterator(root);
+        return bfs_iterator(this->root);
     }
 
     bfs_iterator end_bfs_scan() {
         return bfs_iterator(nullptr);
     }
 
-    bfs_iterator begin() {
+    bfs_iterator begin() {  // Default iterator
         return begin_bfs_scan();
     }
 
-    bfs_iterator end() {
+    bfs_iterator end() {  // Default iterator
         return end_bfs_scan();
     }
 
     iterator_type4 begin_min_heap() {
-        return iterator_type4(root);
+        return iterator_type4(this->root);
     }
 
     iterator_type4 end_min_heap() {
@@ -456,14 +419,12 @@ class Tree {
     }
 };
 
-
-
 template <typename T>
 void drawTree(QGraphicsScene* scene, Node<T>* node, int x, int y, int offset) {
     if (!node) return;
-    const int ellipseRadius = 30;  // Increased radius for better ratio
+    const int ellipseRadius = 30;     // Increased radius for better ratio
     QPen nodePen(QColor(139, 0, 0));  // Dark red color
-    nodePen.setWidth(2);  // Thicker outline
+    nodePen.setWidth(2);              // Thicker outline
     scene->addEllipse(x - ellipseRadius, y - ellipseRadius, 2 * ellipseRadius, 2 * ellipseRadius, nodePen);
 
     QString nodeText = QString::fromStdString(node->to_string());
@@ -472,7 +433,7 @@ void drawTree(QGraphicsScene* scene, Node<T>* node, int x, int y, int offset) {
     // Set a consistent font size and boldness
     QFont font = text->font();
     font.setBold(true);
-    font.setPointSize(10); // Set a consistent font size
+    font.setPointSize(10);  // Set a consistent font size
     text->setFont(font);
     text->setDefaultTextColor(QColor(139, 0, 0));  // Dark red text
     text->setPos(x - text->boundingRect().width() / 2, y - text->boundingRect().height() / 2);
@@ -480,7 +441,7 @@ void drawTree(QGraphicsScene* scene, Node<T>* node, int x, int y, int offset) {
     int childIndex = 0;
     for (auto child : node->get_children()) {
         int childX = x + (childIndex - node->get_children().size() / 2.0) * offset;
-        int childY = y + 80; // Increase the vertical distance between nodes
+        int childY = y + 80;  // Increase the vertical distance between nodes
 
         float dx = childX - x;
         float dy = childY - y;

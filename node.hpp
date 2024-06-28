@@ -17,33 +17,18 @@ class Node {
     // Constructor
     Node(T value) : value(value) {}
 
-    // // Constructor for complex numbers, enabled only if T is Complex
-    // template <typename U = T>
-    // Node(double real, double imag, typename enable_if<is_same<U, Complex>::value>::type* = 0)
-    //     : value(real, imag) {}
-
-    // // Copy Constructor (deep copy)
-    // Node(Node<T>& other) : value(other.value) {
-    //     children.reserve(other.children.size());
-    //     for (auto& child : other.children) {
-    //         children.push_back(new Node<T>(*child));
-    //     }
-    // }
-
-    // // Destructor
-    // ~Node() {
-    //     for (auto child : children) {
-    //         delete child;
-    //     }
-    // }
-    
-    void add_child(Node<T> *child) {
+    void add_child(Node<T>* child) {
         children.push_back(child);
     }
-    void delete_children() {
-        children.clear();
-    }
 
+     void delete_children() {
+         for (auto child : children) {
+             child->delete_children();  // Recursively delete grandchildren
+             cout << "Deleting node with value " << child->value << endl;
+             delete child;  // Delete the child node
+         }
+         children.clear();  // Clear the vector of child pointers
+     }
 
     const T& get_value() const { return value; }
 
