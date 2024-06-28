@@ -1,8 +1,8 @@
 #ifndef COMPLEX_HPP
 #define COMPLEX_HPP
-#include <sstream>
 #include <cmath>
 #include <iostream>
+#include <sstream>
 #include <string>
 
 using namespace std;
@@ -47,21 +47,16 @@ class Complex {
         return !(*this < other);
     }
 
-   friend string to_string(const Complex& complex){
-           return to_string(complex.real) + "+" + to_string(complex.imag) +"i";
-       }
-
-    friend ostream& operator<<(ostream& out,const Complex& comp){
-        out << to_string(comp);
+    friend ostream& operator<<(ostream& out, const Complex& comp) {
+        out << comp.to_string();
         return out;
     }
 
-    // string to_string() const {
-    //     ostringstream oss;
-    //     oss << real << "+" << imag << "i";
-    //     return oss.str();
-    // }
+    string to_string() const {
+        ostringstream oss;
+        oss << real << "+" << imag << "i";
+        return oss.str();
+    }
 };
-
 
 #endif  // COMPLEX_HPP
