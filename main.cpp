@@ -16,7 +16,6 @@ using namespace std;
 
 int main() {
 {
-    cout<< "Doubles Binary tree" << endl;
     Node<double> root_node(1.1);
     Node<double> n1(1.2);
     Node<double> n2(1.3);
@@ -25,11 +24,14 @@ int main() {
     Node<double> n5(1.6);
     Tree<double> tree;
     tree.add_root(root_node);
+
     tree.add_sub_node(root_node, n1);
     tree.add_sub_node(root_node, n2);
     tree.add_sub_node(n1, n3);
     tree.add_sub_node(n1, n4);
     tree.add_sub_node(n2, n5);
+
+
 
     cout << "DFS: ";
     for (auto node = tree.begin_dfs_scan(); node != tree.end_dfs_scan(); ++node) {
@@ -73,43 +75,10 @@ int main() {
         cout << node->get_value() << " ";
     } // same as BFS: 1.1, 1.2, 1.3, 1.4, 1.5, 1.6
     cout << endl;
+
+    cout << tree << endl;
 }
 {
-    cout << "Doubles 3-ary tree" << endl;
-    Node<double> root_node(1.1);
-    Node<double> n1(1.2);
-    Node<double> n2(1.3);
-    Node<double> n3(1.4);
-    Node<double> n4(1.5);
-    Node<double> n5(1.6);
-    Tree<double, 3> three_ary_tree;  // 3-ary tree.
-    three_ary_tree.add_root(root_node);
-    three_ary_tree.add_sub_node(root_node, n1);
-    three_ary_tree.add_sub_node(root_node, n2);
-    three_ary_tree.add_sub_node(root_node, n3);
-    three_ary_tree.add_sub_node(n1, n4);
-    three_ary_tree.add_sub_node(n2, n5);
-
-    cout << "Pre order-3ary: ";
-    for (auto node = three_ary_tree.begin_pre_order(); node != three_ary_tree.end_pre_order(); ++node) {
-        cout << node->get_value() << " ";
-    }  // prints: 1.1, 1.2, 1.5, 1.3, 1.6, 1.4
-    cout << endl;
-
-       cout << "IN order-3ary: ";
-    for (auto node = three_ary_tree.begin_in_order(); node != three_ary_tree.end_in_order(); ++node) {
-        cout << node->get_value() << " ";
-    }
-    cout << endl;
-
-    cout << "Post order-3ary: ";
-    for (auto node = three_ary_tree.begin_post_order(); node != three_ary_tree.end_post_order(); ++node) {
-        cout << node->get_value() << " ";
-    } // prints: 1.1, 1.2, 1.5, 1.3, 1.6, 1.4
-    cout << endl;
-}
-{
-    cout << "Complex Binary tree" << endl;
     Node<Complex> c_root(Complex(1.1, 2.0));
     Node<Complex> c1(Complex(1.2,3)); // 1.2 , 0.3
     Node<Complex> c2(Complex(1.3,5)); // 1.3 , 0.5
@@ -171,6 +140,39 @@ int main() {
     cout << endl;
 
     cout << complex_tree << endl;
+}
+{
+    Node<double> root_node(1.1);
+    Node<double> n1(1.2);
+    Node<double> n2(1.3);
+    Node<double> n3(1.4);
+    Node<double> n4(1.5);
+    Node<double> n5(1.6);
+    Tree<double, 3> three_ary_tree;  // 3-ary tree.
+    three_ary_tree.add_root(root_node);
+    three_ary_tree.add_sub_node(root_node, n1);
+    three_ary_tree.add_sub_node(root_node, n2);
+    three_ary_tree.add_sub_node(root_node, n3);
+    three_ary_tree.add_sub_node(n1, n4);
+    three_ary_tree.add_sub_node(n2, n5);
+
+    cout << "Pre order-3ary: ";
+    for (auto node = three_ary_tree.begin_pre_order(); node != three_ary_tree.end_pre_order(); ++node) {
+        cout << node->get_value() << " ";
+    }  // prints: 1.1, 1.2, 1.5, 1.3, 1.6, 1.4
+    cout << endl;
+
+       cout << "IN order-3ary: ";
+    for (auto node = three_ary_tree.begin_in_order(); node != three_ary_tree.end_in_order(); ++node) {
+        cout << node->get_value() << " ";
+    }
+    cout << endl;
+
+    cout << "Post order-3ary: ";
+    for (auto node = three_ary_tree.begin_post_order(); node != three_ary_tree.end_post_order(); ++node) {
+        cout << node->get_value() << " ";
+    } // prints: 1.1, 1.2, 1.5, 1.3, 1.6, 1.4
+    cout << endl;
 }
 
     return 0;
