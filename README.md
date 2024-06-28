@@ -15,6 +15,9 @@
     using iterator_type4 = typename std::conditional<K == BINARY, min_heap_iterator, dfs_iterator>::type;
 ```
 
+So for example when we call `in_order_iterator` function in tree.hpp :
+
+
 
 
 has the Following Iterators:
