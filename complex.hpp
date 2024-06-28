@@ -1,9 +1,11 @@
 #ifndef COMPLEX_HPP
 #define COMPLEX_HPP
-
+#include <sstream>
 #include <cmath>
 #include <iostream>
+#include <string>
 
+using namespace std;
 class Complex {
    public:
     double real;
@@ -88,6 +90,28 @@ class Complex {
     bool operator>=(const Complex& other) const {
         return !(*this < other);
     }
+
+    string to_string() const {
+        std::ostringstream out;
+
+        if (real != 0) {
+            out << real;
+        }
+
+        if (imag != 0) {
+            if (imag > 0 && real != 0) {
+                out << "+";
+            }
+            out << imag << "i";
+        }
+
+        if (real == 0 && imag == 0) {
+            out << "0";
+        }
+
+        return out.str();
+    }
+
 
     friend std::ostream& operator<<(std::ostream& os, const Complex& c) {
         os << "{" << c.real << "," << c.imag << "}";

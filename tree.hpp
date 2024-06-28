@@ -3,6 +3,7 @@
 #include <QGraphicsEllipseItem>
 #include <QFont>
 #include <QPen> 
+#include <QString>
 #include <QColor>
 #include <QGraphicsScene>
 #include <QGraphicsTextItem>
@@ -55,7 +56,9 @@ class Tree {
         delete_tree(root);
     }
 
-    int get_max_children() const { return max_children; }
+    int get_max_children() const { 
+        return max_children; 
+    }
 
     void add_root(Node<T>& node) {
         if (root != nullptr) {
@@ -434,42 +437,6 @@ class Tree {
     }
 };
 
-// template <typename T>
-// void drawTree(QGraphicsScene* scene, Node<T>* node, int x, int y, int offset) {
-//     if (!node) return;
-
-//     const int ellipseRadius = 20;
-//     scene->addEllipse(x - ellipseRadius, y - ellipseRadius, 2 * ellipseRadius, 2 * ellipseRadius);
-//     QGraphicsTextItem* text = scene->addText(QString::number(node->get_value()));
-//     QFont font = text->font();
-//     font.setBold(true);  // Make the font bold
-//     text->setPos(x - text->boundingRect().width() / 2, y - text->boundingRect().height() / 2);
-
-//     int childIndex = 0;
-//     for (auto child : node->get_children()) {
-//         int childX = x + (childIndex - node->get_children().size() / 2.0) * offset;
-//         int childY = y + 60;
-
-//         // Calculate direction vector
-//         float dx = childX - x;
-//         float dy = childY - y;
-//         float length = sqrt(dx * dx + dy * dy);
-//         dx /= length;  // Normalize
-//         dy /= length;  // Normalize
-
-//         // Adjust start and end points by a small offset
-//         int startX = x + dx * ellipseRadius;
-//         int startY = y + dy * ellipseRadius;
-//         int endX = childX - dx * ellipseRadius;
-//         int endY = childY - dy * ellipseRadius;
-//         QPen pen(QColor(139, 0, 0));
-//         scene->addLine(startX, startY, endX, endY, pen);
-
-//         drawTree(scene, child, childX, childY, offset / 2);
-//         childIndex++;
-//     }
-// }
-
 template <typename T>
 void drawTree(QGraphicsScene* scene, Node<T>* node, int x, int y, int offset) {
     if (!node) return;
@@ -479,7 +446,9 @@ void drawTree(QGraphicsScene* scene, Node<T>* node, int x, int y, int offset) {
     nodePen.setWidth(2);  // Thicker outline
     scene->addEllipse(x - ellipseRadius, y - ellipseRadius, 2 * ellipseRadius, 2 * ellipseRadius, nodePen);
 
-    QGraphicsTextItem* text = scene->addText(QString::number(node->get_value()));
+
+  //  QGraphicsTextItem* text = scene->addText(QString::number(node->get_value()));
+    QGraphicsTextItem* text = scene->addText(QString::fromStdString(node->to_string()));
     QFont font = text->font();
     font.setBold(true);
     font.setPointSize(12);  // Increase font size

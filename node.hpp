@@ -37,6 +37,14 @@ class Node {
     }
 
     const T& get_value() const { return value; }
+    string to_string() const { 
+        if(typeid(T) == typeid(Complex)){
+            return value.to_string();
+        } else {
+            return std::to_string(value);
+        }
+    }
+
     const  vector<Node<T>*>& get_children() const { return children; }
 
     Node& operator=(const Node<T>& other) {

@@ -61,6 +61,14 @@
         "qapplication": "cpp",
         "qgraphicsview": "cpp",
         "qgraphicsellipseitem": "cpp",
-        "qgraphicstextitem": "cpp"
-    }
+        "qgraphicstextitem": "cpp",
+        "qpen": "cpp"
+    },
+    "makefile.launchConfigurations": [
+        {
+            "cwd": "/home/benami/ss2course/System_Programming2_Exe4",
+            "binaryPath": "/home/benami/ss2course/System_Programming2_Exe4/Prog",
+            "binaryArgs": []
+        }
+    ]
 }
