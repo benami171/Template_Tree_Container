@@ -132,7 +132,7 @@ int main() {
 
         cout << "Default iterator: ";
         for (auto node : tree) {
-            cout << node->get_value() << " ";
+            cout << node << " ";
         }  // same as BFS: 1.1, 1.2, 1.3, 1.4, 1.5, 1.6
         cout << endl;
     }

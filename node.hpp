@@ -30,7 +30,7 @@ class Node {
          children.clear();  // Clear the vector of child pointers
      }
 
-    const T& get_value() const { 
+     T& get_value() { 
         return value; 
         }
 

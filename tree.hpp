@@ -105,6 +105,16 @@ class Tree {
         Node<T>* current;
         std::stack<Node<T>*> stk;
 
+        // void push_left(Node<T>* node) {
+        //     while (node) {
+        //         stk.push(node);
+        //         if (!node->children.empty()) {
+        //             node = node->children[LEFT_CHILD];
+        //         } else {
+        //             node = nullptr;
+        //         }
+        //     }
+        // }
         void push_left(Node<T>* node) {
             while (node) {
                 stk.push(node);
@@ -117,24 +127,33 @@ class Tree {
         }
 
        public:
+        // in_order_iterator(Node<T>* root) {
+        //     Node<T>* node = root;
+        //     while (node) {
+        //         stk.push(node);
+        //         if (!node->children.empty()) {
+        //             node = node->children[LEFT_CHILD];
+        //         } else {
+        //             node = nullptr;
+        //         }
+        //     }
+        //     if (!stk.empty()) {
+        //         current = stk.top();
+        //         stk.pop();
+        //     }
+        // }
         in_order_iterator(Node<T>* root) {
-            Node<T>* node = root;
-            while (node) {
-                stk.push(node);
-                if (!node->children.empty()) {
-                    node = node->children[LEFT_CHILD];
-                } else {
-                    node = nullptr;
-                }
-            }
+            push_left(root);
             if (!stk.empty()) {
                 current = stk.top();
                 stk.pop();
+            } else {
+                current = nullptr;
             }
         }
 
-        Node<T>* operator*() const {
-            return current;
+        T& operator*() const {
+            return current->get_value();
         }
 
         Node<T>* operator->() const {
@@ -176,7 +195,7 @@ class Tree {
 
        public:
         pre_order_iterator(Node<T>* root) {
-            nodes_stack.emplace(nullptr);  // For the end
+            nodes_stack.emplace(nullptr);  // For the end, because we use top()
             if (root != nullptr) {
                 nodes_stack.emplace(root);
             }
@@ -267,7 +286,7 @@ class Tree {
             current = nullptr;
         }
 
-        Node<T>* operator*() const {
+        T& operator*() const {
             return current->get_value();
         }
 
@@ -310,7 +329,7 @@ class Tree {
             }
         }
 
-        Node<T>* operator*() const {
+        T& operator*() const {
             return current->get_value();
         }
 
