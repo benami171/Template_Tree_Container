@@ -16,6 +16,7 @@ using namespace std;
 
 int main() {
 {
+    cout<< "Doubles Binary tree" << endl;
     Node<double> root_node(1.1);
     Node<double> n1(1.2);
     Node<double> n2(1.3);
@@ -24,7 +25,6 @@ int main() {
     Node<double> n5(1.6);
     Tree<double> tree;
     tree.add_root(root_node);
-
     tree.add_sub_node(root_node, n1);
     tree.add_sub_node(root_node, n2);
     tree.add_sub_node(n1, n3);
@@ -73,10 +73,9 @@ int main() {
         cout << node->get_value() << " ";
     } // same as BFS: 1.1, 1.2, 1.3, 1.4, 1.5, 1.6
     cout << endl;
-
-    cout << tree << endl;
 }
 {
+    cout << "Doubles 3-ary tree" << endl;
     Node<double> root_node(1.1);
     Node<double> n1(1.2);
     Node<double> n2(1.3);
@@ -110,6 +109,7 @@ int main() {
     cout << endl;
 }
 {
+    cout << "Complex Binary tree" << endl;
     Node<Complex> c_root(Complex(1.1, 2.0));
     Node<Complex> c1(Complex(1.2,3)); // 1.2 , 0.3
     Node<Complex> c2(Complex(1.3,5)); // 1.3 , 0.5
