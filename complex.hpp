@@ -16,17 +16,8 @@ class Complex {
     // Copy constructor
     Complex(const Complex& other) : real(other.real), imag(other.imag) {}
 
-    // Destructor
-    ~Complex() {}
-
-    // Assignment operator
-    Complex& operator=(const Complex& other) {
-        if (this != &other) {
-            real = other.real;
-            imag = other.imag;
-        }
-        return *this;
-    }
+    double get_real() const { return real; }
+    double get_imag() const { return imag; }
 
     // Equality operators
     bool operator==(const Complex& other) const {
@@ -38,49 +29,14 @@ class Complex {
         return !(*this == other);
     }
 
-    // Addition
-    Complex operator+(const Complex& other) const {
-        return Complex(real + other.real, imag + other.imag);
-    }
-
-    // Subtraction
-    Complex operator-(const Complex& other) const {
-        return Complex(real - other.real, imag - other.imag);
-    }
-
-    // Multiplication
-    Complex operator*(const Complex& other) const {
-        return Complex(real * other.real - imag * other.imag, real * other.imag + imag * other.real);
-    }
-
-    // Division
-    Complex operator/(const Complex& other) const {
-        double denominator = other.real * other.real + other.imag * other.imag;
-        return Complex((real * other.real + imag * other.imag) / denominator,
-                       (imag * other.real - real * other.imag) / denominator);
-    }
-
-    // Magnitude
-    double magnitude() const {
-        return std::hypot(real, imag);
-    }
-
-    double magnitudeSquared() const {
-        return real * real + imag * imag;
-    }
-
-    // Phase
-    double phase() const {
-        return atan2(imag, real);
-    }
-
     // Comparison operators (for the sake of completeness)
+    // hypot == sqrt(real^2 + imag^2)
     bool operator<(const Complex& other) const {
-        return std::hypot(real, imag) < std::hypot(other.real, other.imag);
+        return hypot(real, imag) < hypot(other.real, other.imag);
     }
 
     bool operator>(const Complex& other) const {
-        return std::hypot(real, imag) > std::hypot(other.real, other.imag);
+        return other < *this;
     }
 
     bool operator<=(const Complex& other) const {
@@ -91,32 +47,21 @@ class Complex {
         return !(*this < other);
     }
 
-    string to_string() const {
-        std::ostringstream out;
+   friend string to_string(const Complex& complex){
+           return to_string(complex.real) + "+" + to_string(complex.imag) +"i";
+       }
 
-        if (real != 0) {
-            out << real;
-        }
-
-        if (imag != 0) {
-            if (imag > 0 && real != 0) {
-                out << "+";
-            }
-            out << imag << "i";
-        }
-
-        if (real == 0 && imag == 0) {
-            out << "0";
-        }
-
-        return out.str();
+    friend ostream& operator<<(ostream& out,const Complex& comp){
+        out << to_string(comp);
+        return out;
     }
 
-
-    friend std::ostream& operator<<(std::ostream& os, const Complex& c) {
-        os << "{" << c.real << "," << c.imag << "}";
-        return os;
-    }
+    // string to_string() const {
+    //     ostringstream oss;
+    //     oss << real << "+" << imag << "i";
+    //     return oss.str();
+    // }
 };
+
 
 #endif  // COMPLEX_HPP

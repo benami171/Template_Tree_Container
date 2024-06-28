@@ -440,15 +440,13 @@ class Tree {
 template <typename T>
 void drawTree(QGraphicsScene* scene, Node<T>* node, int x, int y, int offset) {
     if (!node) return;
-
     const int ellipseRadius = 20;
     QPen nodePen(QColor(139, 0, 0));  // Dark red color
     nodePen.setWidth(2);  // Thicker outline
     scene->addEllipse(x - ellipseRadius, y - ellipseRadius, 2 * ellipseRadius, 2 * ellipseRadius, nodePen);
 
 
-  //  QGraphicsTextItem* text = scene->addText(QString::number(node->get_value()));
-    QGraphicsTextItem* text = scene->addText(QString::fromStdString(node->to_string()));
+    QGraphicsTextItem* text = scene->addText(QString::number(node->get_value()));
     QFont font = text->font();
     font.setBold(true);
     font.setPointSize(12);  // Increase font size

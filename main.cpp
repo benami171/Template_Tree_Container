@@ -103,7 +103,9 @@ int main() {
      *        /  \          /
      *  1.4+i0.7  1.5,0   1.6,0
      */
-    std::cout << complex_tree << std::endl;
+    // print complex tree type
+
+  //  std::cout << complex_tree << std::endl;
 
     cout << "DFS: ";
     for (auto node = complex_tree.begin_dfs_scan(); node != complex_tree.end_dfs_scan(); ++node) {
