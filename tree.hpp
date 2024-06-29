@@ -51,10 +51,12 @@ class Tree {
     }
 
     void add_sub_node(Node<T>* parent, Node<T>* child) {
-        if (parent->get_children().size() >= (size_t)max_children) {
-            throw std::runtime_error("Parent has reached its maximum number of children");
+        if (parent && child) {
+            if (parent->get_children().size() >= (size_t)max_children) {
+                throw std::runtime_error("Parent has reached its maximum number of children");
+            }
+            parent->add_child(child);
         }
-        parent->add_child(child);
     }
 
     Node<T>* get_root() {
