@@ -45,10 +45,6 @@ class Tree {
    public:
     explicit Tree() : root(nullptr) {}
 
-    int get_max_children() const {
-        return max_children;
-    }
-
     void add_root(Node<T>* root) {
         this->root = root;
     }
