@@ -28,6 +28,8 @@
 #define LEFT_CHILD 0
 #define RIGHT_CHILD 1
 
+using namespace std;
+
 template <typename T, int K = BINARY>
 class Tree {
    private:
@@ -50,23 +52,19 @@ class Tree {
         this->root = root;
     }
 
+    Node<T>* get_root() {
+        return root;
+    }
+
     void add_sub_node(Node<T>* parent, Node<T>* child) {
         if (parent && child) {
             if (parent->get_children().size() >= (size_t)max_children) {
-                throw std::runtime_error("Parent has reached its maximum number of children");
+                throw runtime_error("Parent has reached its maximum number of children");
             }
             parent->add_child(child);
         }
     }
 
-    Node<T>* get_root() {
-        return root;
-    }
-
-    using iterator_pre_order = typename std::conditional<K == BINARY, pre_order_iterator<T>, dfs_iterator<T>>::type;
-    using iterator_post_order = typename std::conditional<K == BINARY, post_order_iterator<T>, dfs_iterator<T>>::type;
-    using iterator_in_order = typename std::conditional<K == BINARY, in_order_iterator<T>, dfs_iterator<T>>::type;
-    using iterator_min_heap = typename std::conditional<K == BINARY, min_heap_iterator<T>, dfs_iterator<T>>::type;
 
     iterator_pre_order begin_pre_order() {
         return iterator_pre_order(this->root);
@@ -123,6 +121,13 @@ class Tree {
     iterator_min_heap end_min_heap() {
         return iterator_min_heap(nullptr);
     }
+
+    // based on the condition(if K == BINARY) it will use the first type, otherwise the second type
+    // that way we can use the same function for both binary and non-binary trees while using the correct iterator for each type.
+    using iterator_pre_order = typename conditional<K == BINARY, pre_order_iterator<T>, dfs_iterator<T>>::type;
+    using iterator_post_order = typename conditional<K == BINARY, post_order_iterator<T>, dfs_iterator<T>>::type;
+    using iterator_in_order = typename conditional<K == BINARY, in_order_iterator<T>, dfs_iterator<T>>::type;
+    using iterator_min_heap = typename conditional<K == BINARY, min_heap_iterator<T>, dfs_iterator<T>>::type;
 };
 
 template <typename T>

@@ -7,6 +7,7 @@ In this project i implemented a template container that represents a K-ary tree 
 
 ## All the different classes and their hierarchy
 - `tree.hpp` - a Template K-ary tree container, has a `Node<T>* root`. uses the `iterators.hpp` to travers the tree in different ways (depends what K is the tree).
+Also, the `tree` class uses the `type_traits` library to use compile-time type manipulation based on certain conditions (see `Explenation about the tree container usage with iterators` below for additional explenation).
 - `node.hpp` - a Template Node class to hold any type.
 - `complex.hpp` - represents complex numbers, can be used by `node.hpp` to store complex numbers as data.
 - We have 6 different iterator classes inside the file `iterators.hpp`:
@@ -19,7 +20,7 @@ In this project i implemented a template container that represents a K-ary tree 
 
 ### Explenation about the tree container usage with iterators.
 - A template class that represents a K-ary tree (Binary by default), holds an access to the root node and its `K` value that represents the highest degree that a node can have in the tree.
-- during runtime the program will detect which type of tree the iterator gets called on, and if the iterators `in_order_iterator`, `pre_order_iterator` or `post_order_iterator` was called with a K!=2-Tree, it will direct the type of iterator to be `dfs_iterator` in runtime.
+- during Compile-time the program will detect which type of tree the iterator gets called on, and if the iterators `in_order_iterator`, `pre_order_iterator` or `post_order_iterator` was called with a K!=2-Tree, it will direct the type of iterator to be `dfs_iterator` in Compile-time.
 
 - How it does it:
 - in the Tree class, we have used `type_traits` in this way:

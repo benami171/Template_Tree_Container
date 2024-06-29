@@ -1,12 +1,10 @@
 // Created by: Gal Ben Ami
 // email: benami171@gmail.com
-
 #pragma once
 
 #include <iostream>
 #include <type_traits>
 #include <vector>
-
 #include "complex.hpp"
 
 using namespace std;
