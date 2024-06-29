@@ -1,3 +1,5 @@
+// Created by: Gal Ben Ami
+// email: benami171@gmail.com
 #ifndef TREE_HPP
 #define TREE_HPP
 #include <QApplication>

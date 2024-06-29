@@ -1,3 +1,6 @@
+// Created by: Gal Ben Ami
+// email: benami171@gmail.com
+
 #include <QApplication>
 #include <QGraphicsEllipseItem>
 #include <QGraphicsScene>

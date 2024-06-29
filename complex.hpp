@@ -1,3 +1,6 @@
+// Created by: Gal Ben Ami
+// email: benami171@gmail.com
+
 #ifndef COMPLEX_HPP
 #define COMPLEX_HPP
 #include <cmath>
