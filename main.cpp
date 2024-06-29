@@ -17,7 +17,7 @@
 
 using namespace std;
 
-void print_binary_tree() {
+void iterate_binary_tree() {
     Node<double> root_node(1.1);
     Node<double> n1(1.2);
     Node<double> n2(1.3);
@@ -75,7 +75,7 @@ void print_binary_tree() {
     cout << endl;
 }
 
-void print_threeAry_tree() {
+void iterate_threeAry_tree() {
     Node<double> root_node(1.1);
     Node<double> n1(1.2);
     Node<double> n2(1.3);
@@ -118,7 +118,7 @@ void print_threeAry_tree() {
     cout << endl;
 }
 
-void print_complex_tree() {
+void iterate_complex_tree() {
     Node<Complex> c_root(Complex(1.1, 2.0));
     Node<Complex> c1(Complex(1.2, 3));  // 1.2 , 0.3
     Node<Complex> c2(Complex(1.3, -5));  // 1.3 , -5
@@ -178,7 +178,7 @@ void print_complex_tree() {
         cout << node->get_value() << " ";
     }
 
-    
+
 
 
     cout << endl;
@@ -186,10 +186,10 @@ void print_complex_tree() {
 }
 
 int main() {
-    print_binary_tree();
+    iterate_binary_tree();
     cout << endl;
-    print_threeAry_tree();
+    iterate_threeAry_tree();
     cout << endl;
-    print_complex_tree();
+    iterate_complex_tree();
     return 0;
 }
