@@ -2,8 +2,8 @@
 // email: benami171@gmail.com
 #include <queue>
 #include <stack>
-#include <vector>
 #include <unordered_set>
+#include <vector>
 
 #include "node.hpp"
 #define BINARY 2
@@ -278,14 +278,38 @@ template <typename T>
 class min_heap_iterator {
    private:
     Node<T>* current;
-    std::queue<Node<T>*> nodesQueue;
+    vector<Node<T>*> nodesVector;
+    typename vector<Node<T>*>::iterator iter;
+
+    // Helper function to build the min-heap in vector form
+    void build_min_heap(Node<T>* node) {
+        if (!node) return;
+        nodesVector.push_back(node);
+        for (auto child : node->get_children()) {
+            build_min_heap(child);
+        }
+    }
 
    public:
     // Constructor
-    min_heap_iterator(Node<T>* root) {
+    min_heap_iterator(Node<T>* root) : current(nullptr) {
         if (root != nullptr) {
-            nodesQueue.push(root);
-            current = root;  // Initialize current to root
+            // Recursively build the min-heap in vector form starting from the root node
+            build_min_heap(root);
+
+            // Sort the nodesVector to ensure min-heap order
+            sort(nodesVector.begin(), nodesVector.end(), [](Node<T>* a, Node<T>* b) {
+                // Compare the values of nodes to determine order
+                return a->get_value() < b->get_value();
+            });
+
+            // Initialize the iterator to the beginning of the sorted vector
+            iter = nodesVector.begin();
+
+            // If the iterator is not at the end, set the current node to the first node in the vector
+            if (iter != nodesVector.end()) {
+                current = *iter;  // Dereference the iterator to get the node
+            }
         }
     }
 
@@ -299,12 +323,10 @@ class min_heap_iterator {
 
     // Move to the next element
     min_heap_iterator& operator++() {
-        if (!nodesQueue.empty()) {
-            nodesQueue.pop();  // Pop the current node
-            for (auto child : current->children) {
-                if (child != nullptr) nodesQueue.push(child);
-            }
-            current = !nodesQueue.empty() ? nodesQueue.front() : nullptr;  // Update current to the next node
+        if (iter != nodesVector.end()) {
+            ++iter;
+            // If we reached the end, set current to nullptr
+            current = (iter != nodesVector.end()) ? *iter : nullptr;
         }
         return *this;
     }

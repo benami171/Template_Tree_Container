@@ -3,49 +3,50 @@
 #pragma once
 
 #include <iostream>
-#include <type_traits>
+#include <sstream>
+#include <string>
 #include <vector>
 #include "complex.hpp"
 
-using namespace std;
-
 template <typename T>
 class Node {
-   public:
+public:
     T value;
-    vector<Node<T>*> children;
+    std::vector<Node<T>*> children;
 
-    Node(T value) : value(value) {}
+    explicit Node(T value) : value(value) {}
 
     void add_child(Node<T>* child) {
-        children.push_back(child);
+        if (child) {
+            children.push_back(child);
+        }
     }
 
     void delete_children() {
-        children.clear();  // Clear the vector of the children pointers
+        children.clear();
     }
 
     T& get_value() {
         return value;
     }
 
-    const vector<Node<T>*>& get_children() const {
+    const std::vector<Node<T>*>& get_children() const {
         return children;
     }
 
-    string to_string() const {
+    std::string to_string() const {
         return value_to_string(value);
     }
 
-   private:
+private:
     template <typename U>
-    string value_to_string(const U& val) const {
-        ostringstream oss;
+    std::string value_to_string(const U& val) const {
+        std::ostringstream oss;
         oss << val;  // Relying on the stream operator for non-Complex types
         return oss.str();
     }
 
-    string value_to_string(const Complex& val) const {
+    std::string value_to_string(const Complex& val) const {
         return val.to_string();
     }
 };

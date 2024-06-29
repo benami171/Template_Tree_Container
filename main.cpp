@@ -177,6 +177,10 @@ void print_complex_tree() {
     for (auto node = complex_tree.begin_min_heap(); node != complex_tree.end_min_heap(); ++node) {
         cout << node->get_value() << " ";
     }
+
+    
+
+
     cout << endl;
     cout << complex_tree << endl;
 }

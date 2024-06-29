@@ -3,39 +3,34 @@
 
 #ifndef COMPLEX_HPP
 #define COMPLEX_HPP
+
 #include <cmath>
 #include <iostream>
 #include <sstream>
 #include <string>
 
-using namespace std;
 class Complex {
-   public:
+public:
     double real;
     double imag;
 
     Complex() : real(0.0), imag(0.0) {}
-    Complex(double r = 0.0, double i = 0.0) : real(r), imag(i) {}
-    // Copy constructor
+    Complex(double r, double i) : real(r), imag(i) {}
     Complex(const Complex& other) : real(other.real), imag(other.imag) {}
 
     double get_real() const { return real; }
     double get_imag() const { return imag; }
 
-    // Equality operators
     bool operator==(const Complex& other) const {
         return (real == other.real) && (imag == other.imag);
     }
 
-    // Inequality operator
     bool operator!=(const Complex& other) const {
         return !(*this == other);
     }
 
-    // Comparison operators (for the sake of completeness)
-    // hypot == sqrt(real^2 + imag^2)
     bool operator<(const Complex& other) const {
-        return hypot(real, imag) < hypot(other.real, other.imag);
+        return std::hypot(real, imag) < std::hypot(other.real, other.imag);
     }
 
     bool operator>(const Complex& other) const {
@@ -50,13 +45,13 @@ class Complex {
         return !(*this < other);
     }
 
-    friend ostream& operator<<(ostream& out, const Complex& comp) {
+    friend std::ostream& operator<<(std::ostream& out, const Complex& comp) {
         out << comp.to_string();
         return out;
     }
 
-    string to_string() const {
-        ostringstream oss;
+    std::string to_string() const {
+        std::ostringstream oss;
         if (real == 0 && imag == 0) {
             oss << "0";
         } else if (real == 0) {
@@ -64,7 +59,7 @@ class Complex {
         } else if (imag == 0) {
             oss << real;
         } else {
-            oss << real << (imag > 0 ? "+i" : "-i") << abs(imag);
+            oss << real << (imag > 0 ? "+i" : "-i") << std::abs(imag);
         }
         return oss.str();
     }
