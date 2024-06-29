@@ -67,7 +67,8 @@
         "cstring": "cpp",
         "set": "cpp",
         "fstream": "cpp",
-        "iomanip": "cpp"
+        "iomanip": "cpp",
+        "qgraphicsscene": "cpp"
     },
     "makefile.launchConfigurations": [
         {

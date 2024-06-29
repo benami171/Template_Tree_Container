@@ -43,6 +43,11 @@ class Tree {
     }
 
     void add_root(Node<T>* root) {
+        if (this->root != nullptr) {
+            for (auto it = all_nodes.rbegin(); it != all_nodes.rend(); ++it) {
+                (*it)->delete_children();
+            }
+        }
         this->root = root;
         all_nodes.push_back(root);
     }
