@@ -7,7 +7,8 @@ In this project i implemented a template container that represents a K-ary tree 
 
 ## All the different classes and their hierarchy
 - `tree.hpp` - a Template K-ary tree container, has a `Node<T>* root`. uses the `iterators.hpp` to travers the tree in different ways (depends what K is the tree).
-Also, the `tree` class uses the `type_traits` library to use compile-time type manipulation based on certain conditions (see `Explenation about the tree container usage with iterators` below for additional explenation).
+the `tree` class uses the `type_traits` library to use compile-time type manipulation based on certain conditions (see `Explenation about the tree container usage with iterators` below for additional explenation).
+In order to print the tree using gui we used `QT` library.
 - `node.hpp` - a Template Node class to hold any type.
 - `complex.hpp` - represents complex numbers, can be used by `node.hpp` to store complex numbers as data.
 - We have 6 different iterator classes inside the file `iterators.hpp`:
