@@ -121,10 +121,6 @@ class Tree {
     iterator_min_heap end_min_heap() {
         return iterator_min_heap(nullptr);
     }
-
-    std::pair<iterator_min_heap, iterator_min_heap> myHeap() {
-        return std::make_pair(begin_min_heap(), end_min_heap());
-    }
 };
 
 template <typename T>
