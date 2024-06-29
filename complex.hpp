@@ -57,7 +57,15 @@ class Complex {
 
     string to_string() const {
         ostringstream oss;
-        oss << real << "+" << imag << "i";
+        if (real == 0 && imag == 0) {
+            oss << "0";
+        } else if (real == 0) {
+            oss << "i" << imag;
+        } else if (imag == 0) {
+            oss << real;
+        } else {
+            oss << real << (imag > 0 ? "+i" : "-i") << abs(imag);
+        }
         return oss.str();
     }
 };

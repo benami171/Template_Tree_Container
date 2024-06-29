@@ -121,10 +121,10 @@ void print_threeAry_tree() {
 void print_complex_tree() {
     Node<Complex> c_root(Complex(1.1, 2.0));
     Node<Complex> c1(Complex(1.2, 3));  // 1.2 , 0.3
-    Node<Complex> c2(Complex(1.3, 5));  // 1.3 , 0.5
-    Node<Complex> c3(Complex(1.4, 7));  // 1.4 , 0.7
-    Node<Complex> c4(Complex(1.5));
-    Node<Complex> c5(Complex(1.6));
+    Node<Complex> c2(Complex(1.3, -5));  // 1.3 , -5
+    Node<Complex> c3(Complex(-1.4, 7));  // -1.4 , 7
+    Node<Complex> c4(Complex(1.5,3));
+    Node<Complex> c5(Complex(1.6,-4));
     Tree<Complex> complex_tree;  // Binary tree that contains Complex numbers.
 
     complex_tree.add_root(&c_root);
@@ -138,9 +138,9 @@ void print_complex_tree() {
     /**
      *      root =  1.1+i2
      *          /          |
-     *         1.2+i0.3      1.3+i0.5
+     *         1.2+i3      1.3-i5
      *        /  \          /
-     *  1.4+i7  1.5+0   1.6,0
+     *  -1.4+i7  1.5+i3   1.6-i4
      */
 
     cout << "DFS: ";

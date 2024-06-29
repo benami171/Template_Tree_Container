@@ -33,7 +33,6 @@ class Tree {
    private:
     Node<T>* root;
     int max_children = K;
-    vector<Node<T>*> all_nodes;  // To manage all nodes’ lifetimes
 
    public:
     Tree() : root(nullptr) {}
@@ -48,13 +47,7 @@ class Tree {
     }
 
     void add_root(Node<T>* root) {
-        if (this->root != nullptr) {
-            for (auto it = all_nodes.rbegin(); it != all_nodes.rend(); ++it) {
-                (*it)->delete_children();
-            }
-        }
         this->root = root;
-        all_nodes.push_back(root);
     }
 
     void add_sub_node(Node<T>* parent, Node<T>* child) {
@@ -62,7 +55,6 @@ class Tree {
             throw std::runtime_error("Parent has reached its maximum number of children");
         }
         parent->add_child(child);
-        all_nodes.push_back(child);
     }
 
     Node<T>* get_root() {
