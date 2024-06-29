@@ -22,7 +22,7 @@
         cout << node->get_value() << " ";
     }
 ```
-- It will travers the tree using `bfs_iterator` and not `pre_order_iterator`.
+It will travers the tree using `bfs_iterator` and not `pre_order_iterator`.
 
 ### Tree container private fields:
 - `Node<T>* root` a pointer to the root node.
