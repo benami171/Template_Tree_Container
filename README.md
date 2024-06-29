@@ -33,6 +33,8 @@ It will travers the tree using `bfs_iterator` and not `pre_order_iterator`.
 ### Tree container public methods:
 - `explicit Tree()` an explicit constructor
 - `int get_max_children()` returns the K of the tree container.
+- `Tree()` default constructor.
+- `~Tree()` destrtuctor, traverses the nodes
 
 
 

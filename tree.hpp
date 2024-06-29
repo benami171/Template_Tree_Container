@@ -39,9 +39,12 @@ class Tree {
     Tree() : root(nullptr) {}
 
     ~Tree() {
-        for (auto it = all_nodes.rbegin(); it != all_nodes.rend(); ++it) {
-            (*it)->delete_children();
+        bfs_iterator<T> prev = begin_bfs_scan();
+        for (auto it = begin_bfs_scan(); it != end_bfs_scan(); ++it) {
+            prev = it;
+            prev->delete_children();
         }
+        root = nullptr;
     }
 
     void add_root(Node<T>* root) {
