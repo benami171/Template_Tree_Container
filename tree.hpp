@@ -30,20 +30,8 @@ class Tree {
     Node<T>* root;
     int max_children = K;
 
-    // Helper method to find a node . given a tree and a value to look for.
-    // Returns the node if found, nullptr otherwise.
-    Node<T>* find_node(Node<T>* node, const T& value) {
-        if (node == nullptr) return nullptr;
-        if (node->value == value) return node;
-        for (auto child : node->children) {
-            Node<T>* found = find_node(child, value);
-            if (found != nullptr) return found;
-        }
-        return nullptr;
-    }
-
    public:
-    explicit Tree() : root(nullptr) {}
+    Tree() : root(nullptr) {}
 
     void add_root(Node<T>* root) {
         this->root = root;
@@ -56,7 +44,9 @@ class Tree {
         parent->add_child(child);
     }
 
-    Node<T>* get_root() { return root; }
+    Node<T>* get_root() { 
+        return root; 
+        }
 
     class dfs_iterator {
        private:
@@ -101,16 +91,6 @@ class Tree {
         Node<T>* current;
         std::stack<Node<T>*> stk;
 
-        // void push_left(Node<T>* node) {
-        //     while (node) {
-        //         stk.push(node);
-        //         if (!node->children.empty()) {
-        //             node = node->children[LEFT_CHILD];
-        //         } else {
-        //             node = nullptr;
-        //         }
-        //     }
-        // }
         void push_left(Node<T>* node) {
             while (node) {
                 stk.push(node);
@@ -123,21 +103,7 @@ class Tree {
         }
 
        public:
-        // in_order_iterator(Node<T>* root) {
-        //     Node<T>* node = root;
-        //     while (node) {
-        //         stk.push(node);
-        //         if (!node->children.empty()) {
-        //             node = node->children[LEFT_CHILD];
-        //         } else {
-        //             node = nullptr;
-        //         }
-        //     }
-        //     if (!stk.empty()) {
-        //         current = stk.top();
-        //         stk.pop();
-        //     }
-        // }
+
         in_order_iterator(Node<T>* root) {
             push_left(root);
             if (!stk.empty()) {
