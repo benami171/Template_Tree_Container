@@ -1,7 +1,7 @@
 QT       += core gui widgets
 TEMPLATE = app
 
-HEADERS += node.hpp tree.hpp complex.hpp
+HEADERS += node.hpp tree.hpp iterators.hpp complex.hpp
 CONFIG += c++11
 CONFIG -= app_bundle
 

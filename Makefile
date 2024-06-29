@@ -133,6 +133,7 @@ DIST          = /usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/spec_pre.prf \
 		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/lex.prf \
 		myProg.pro node.hpp \
 		tree.hpp \
+		iterators.hpp \
 		complex.hpp main.cpp
 QMAKE_TARGET  = Prog
 DESTDIR       = 
@@ -317,7 +318,7 @@ distdir: FORCE
 	@test -d $(DISTDIR) || mkdir -p $(DISTDIR)
 	$(COPY_FILE) --parents $(DIST) $(DISTDIR)/
 	$(COPY_FILE) --parents /usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/data/dummy.cpp $(DISTDIR)/
-	$(COPY_FILE) --parents node.hpp tree.hpp complex.hpp $(DISTDIR)/
+	$(COPY_FILE) --parents node.hpp tree.hpp iterators.hpp complex.hpp $(DISTDIR)/
 	$(COPY_FILE) --parents main.cpp $(DISTDIR)/
 
 
@@ -377,7 +378,8 @@ compiler_clean: compiler_moc_predefs_clean
 
 main.o: main.cpp complex.hpp \
 		node.hpp \
-		tree.hpp
+		tree.hpp \
+		iterators.hpp
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o main.o main.cpp
 
 ####### Install

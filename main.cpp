@@ -78,6 +78,7 @@ int main() {
 
         cout << complex_tree << endl;
     }
+    cout << endl;
         Node<double> root_node(1.1);
         Node<double> n1(1.2);
         Node<double> n2(1.3);
@@ -85,7 +86,6 @@ int main() {
         Node<double> n4(1.5);
         Node<double> n5(1.6);
     {
-
         Tree<double> tree;
         tree.add_root(&root_node);
         tree.add_sub_node(&root_node, &n1);
@@ -179,6 +179,5 @@ int main() {
         }  // prints: 1.1, 1.2, 1.5, 1.3, 1.6, 1.4
         cout << endl;
     }
-    cout << endl;
     return 0;
 }

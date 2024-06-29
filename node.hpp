@@ -14,33 +14,23 @@ class Node {
     T value;
     vector<Node<T>*> children;
 
-    // Constructor
     Node(T value) : value(value) {}
 
     void add_child(Node<T>* child) {
         children.push_back(child);
     }
 
-     void delete_children() {
-         for (auto child : children) {
-             child->delete_children();  // Recursively delete grandchildren
-             cout << "Deleting node with value " << child->value << endl;
-             delete child;  // Delete the child node
-         }
-         children.clear();  // Clear the vector of child pointers
-     }
+    void delete_children() {
+        children.clear();  // Clear the vector of the children pointers
+    }
 
-     T& get_value() { 
-        return value; 
-        }
+    T& get_value() {
+        return value;
+    }
 
-    const vector<Node<T>*>& get_children() const { return children; }
-
-
-    bool operator<(const Node<T>& other) const { return value < other.value; }
-    bool operator>(const Node<T>& other) const { return value > other.value; }
-    bool operator==(const Node<T>& other) const { return value == other.value; }
-    bool operator!=(const Node<T>& other) const { return !(*this == other); }
+    const vector<Node<T>*>& get_children() const {
+        return children;
+    }
 
     string to_string() const {
         return value_to_string(value);
