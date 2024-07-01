@@ -139,18 +139,21 @@ class pre_order_iterator {
         Node<T>* current = nodes_stack.top();
         nodes_stack.pop();
 
+        // If the current node has a right child, push it onto the stack.
         if (current->children.size() > 1) {
             if (current->children[1] != nullptr) {
                 nodes_stack.emplace(current->children[1]);
             }
         }
+
+        // If the current node has a left child, push it onto the stack.
         if (current->children.size() > 0) {
             if (current->children[0] != nullptr) {
                 nodes_stack.emplace(current->children[0]);
             }
         }
 
-        return *this;
+        return *this; // Return a reference to this iterator to allow chaining.
     }
 
     bool operator==(const pre_order_iterator& other) const {
@@ -190,26 +193,27 @@ class post_order_iterator {
         advance();
     }
 
+    // Helper function to advance the iterator
     void advance() {
         while (!stk.empty()) {
-            Node<T>* node = stk.top();
+            Node<T>* node = stk.top();  // Get the current node
             if (node == nullptr) {
-                stk.pop();
+                stk.pop();  // Remove the null marker indicating a return to a parent node.
                 if (!stk.empty()) {
-                    current = stk.top();
-                    stk.pop();
+                    current = stk.top();  // Set the current node to the next node in the stack.
+                    stk.pop();            // Remove the current node from the stack.
                 }
                 return;
             }
-            if (visited.find(node) == visited.end()) {
-                stk.push(nullptr);
-                push_children(node);
-                visited.insert(node);
+            if (visited.find(node) == visited.end()) {  // If the node hasn't been visited yet.
+                stk.push(nullptr);                      // Push a null marker to indicate a return to this node.
+                push_children(node);                    // Push the children of the node onto the stack.
+                visited.insert(node);                   // Mark the node as visited.
             } else {
-                stk.pop();
+                stk.pop();  // Remove the node from the stack if it has been visited.
             }
         }
-        current = nullptr;
+        current = nullptr;  // No more nodes to visit.
     }
 
     T& operator*() const {

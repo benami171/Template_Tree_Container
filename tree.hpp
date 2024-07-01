@@ -55,12 +55,14 @@ public:
         }
     }
 
+
     void clear() {
         auto prev = begin_bfs_scan();
         for (auto it = begin_bfs_scan(); it != end_bfs_scan(); ++it) {
             prev = it;
             prev->delete_children();
         }
+        // clear the tree.
         root = nullptr;
     }
 
