@@ -136,7 +136,7 @@ void iterate_complex_tree() {
     // The tree should look like:
     /**
      *      root =  1.1+i2
-     *          /          |
+     *          /         \ 
      *         1.2+i3      1.3-i5
      *        /  \          /
      *  -1.4+i7  1.5+i3   1.6-i4
