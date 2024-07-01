@@ -10,7 +10,6 @@
 #include <cmath>
 #include <iostream>
 #include <string>
-
 #include "complex.hpp"
 #include "node.hpp"
 #include "tree.hpp"

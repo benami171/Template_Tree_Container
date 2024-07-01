@@ -21,7 +21,6 @@
 #include <string>
 #include <type_traits>
 #include <vector>
-
 #include "iterators.hpp"
 #include "node.hpp"
 
