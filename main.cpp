@@ -124,7 +124,7 @@ void iterate_complex_tree() {
     Node<Complex> c3(Complex(-1.4, 7));  // -1.4 , 7
     Node<Complex> c4(Complex(1.5,3));
     Node<Complex> c5(Complex(1.6,-4));
-    Tree<Complex> complex_tree;  // Binary tree that contains Complex numbers.
+    Tree<Complex> complex_tree; 
 
     complex_tree.add_root(&c_root);
     complex_tree.add_sub_node(&c_root, &c1);
