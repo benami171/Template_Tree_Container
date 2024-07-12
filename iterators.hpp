@@ -4,7 +4,6 @@
 #include <stack>
 #include <unordered_set>
 #include <vector>
-
 #include "node.hpp"
 #define BINARY 2
 #define LEFT_CHILD 0
