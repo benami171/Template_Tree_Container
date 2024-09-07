@@ -9,7 +9,7 @@
 #define LEFT_CHILD 0
 #define RIGHT_CHILD 1
 
-using namespace stSd;
+using namespace std;
 template <typename T>
 class dfs_iterator {
    private:
