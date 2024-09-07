@@ -8,7 +8,7 @@
 #include <vector>
 #include "complex.hpp"
 
-template <typenme T>
+template <typename T>
 class Node {
 public:
     T value;
