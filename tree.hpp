@@ -24,7 +24,7 @@
 #include "iterators.hpp"
 #include "node.hpp"
 
-
+T
 template <typename T, int K = BINARY>
 class Tree {
 private:
