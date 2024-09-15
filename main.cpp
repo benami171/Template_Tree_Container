@@ -101,7 +101,7 @@ void iterate_threeAry_tree() {
     cout << "Pre order-3ary: ";
     for (auto node = three_ary_tree.begin_pre_order(); node != three_ary_tree.end_pre_order(); ++node) {
         cout << node->get_value() << " ";
-    }  // prints: 1.1, 1.2, 1.5, 1.3, 1.6, 1.4
+    } 
     cout << endl;
 
     cout << "IN order-3ary: ";
@@ -113,15 +113,15 @@ void iterate_threeAry_tree() {
     cout << "Post order-3ary: ";
     for (auto node = three_ary_tree.begin_post_order(); node != three_ary_tree.end_post_order(); ++node) {
         cout << node->get_value() << " ";
-    }  // prints: 1.1, 1.2, 1.5, 1.3, 1.6, 1.4
+    }
     cout << endl;
 }
 
 void iterate_complex_tree() {
     Node<Complex> c_root(Complex(1.1, 2.0));
-    Node<Complex> c1(Complex(1.2, 3));  // 1.2 , 0.3
-    Node<Complex> c2(Complex(1.3, -5));  // 1.3 , -5
-    Node<Complex> c3(Complex(-1.4, 7));  // -1.4 , 7
+    Node<Complex> c1(Complex(1.2, 3)); 
+    Node<Complex> c2(Complex(1.3, -5));
+    Node<Complex> c3(Complex(-1.4, 7));
     Node<Complex> c4(Complex(1.5,3));
     Node<Complex> c5(Complex(1.6,-4));
     Tree<Complex> complex_tree; 
