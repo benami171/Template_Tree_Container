@@ -81,7 +81,7 @@ void iterate_threeAry_tree() {
     Node<double> n3(1.4);
     Node<double> n4(1.5);
     Node<double> n5(1.6);
-    Tree<double, 3> three_ary_tree;  // 3-ary tree.
+    Tree<double, 3> three_ary_tree;
     three_ary_tree.add_root(&root_node);
     three_ary_tree.add_sub_node(&root_node, &n1);
     three_ary_tree.add_sub_node(&root_node, &n2);
