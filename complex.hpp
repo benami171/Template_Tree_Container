@@ -25,9 +25,9 @@ public:
         return (real == other.real) && (imag == other.imag);
     }
 
-    bool operator!=(const Complex& other) const {
-        return !(*this == other);
-    }
+    // bool operator!=(const Complex& other) const {
+    //     return !(*this == other);
+    // }
 
     bool operator<(const Complex& other) const {
         return std::hypot(real, imag) < std::hypot(other.real, other.imag);
