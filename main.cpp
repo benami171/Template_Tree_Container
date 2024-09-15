@@ -145,13 +145,13 @@ void iterate_complex_tree() {
     cout << "DFS: ";
     for (auto node = complex_tree.begin_dfs_scan(); node != complex_tree.end_dfs_scan(); ++node) {
         cout << node->get_value() << " ";
-    }  // prints: {1.1,2} {1.2,0.3} {1.4,0.7} {1.5,0} {1.3,0.5} {1.6,0}
+    }
     cout << endl;
 
     cout << "Pre order: ";
     for (auto node = complex_tree.begin_pre_order(); node != complex_tree.end_pre_order(); ++node) {
         cout << node->get_value() << " ";
-    }  // prints: 1.1, 1.2, 1.4, 1.5, 1.3, 1.6
+    } 
     cout << endl;
 
     cout << "Post order: ";
