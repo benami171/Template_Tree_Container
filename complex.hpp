@@ -18,9 +18,6 @@ public:
     Complex(double r, double i) : real(r), imag(i) {}
     Complex(const Complex& other) : real(other.real), imag(other.imag) {}
 
-    double get_real() const { return real; }
-    double get_imag() const { return imag; }
-
     bool operator==(const Complex& other) const {
         return (real == other.real) && (imag == other.imag);
     }

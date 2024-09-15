@@ -4,6 +4,7 @@
 #include <stack>
 #include <unordered_set>
 #include <vector>
+
 #include "node.hpp"
 #define BINARY 2
 #define LEFT_CHILD 0
@@ -152,7 +153,7 @@ class pre_order_iterator {
             }
         }
 
-        return *this; // Return a reference to this iterator to allow chaining.
+        return *this;  // Return a reference to this iterator to allow chaining.
     }
 
     bool operator==(const pre_order_iterator& other) const {
