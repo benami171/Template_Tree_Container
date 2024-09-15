@@ -294,7 +294,6 @@ class min_heap_iterator {
     }
 
    public:
-    // Constructor
     min_heap_iterator(Node<T>* root) : current(nullptr) {
         if (root != nullptr) {
             // Recursively build the min-heap in vector form starting from the root node
