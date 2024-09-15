@@ -324,11 +324,9 @@ class min_heap_iterator {
         return current;
     }
 
-    // Move to the next element
     min_heap_iterator& operator++() {
         if (iter != nodesVector.end()) {
             ++iter;
-            // If we reached the end, set current to nullptr
             current = (iter != nodesVector.end()) ? *iter : nullptr;
         }
         return *this;
