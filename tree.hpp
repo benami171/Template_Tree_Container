@@ -34,9 +34,9 @@ private:
 public:
     Tree() : root(nullptr) {}
 
-    ~Tree() {
-        clear();
-    }
+    // ~Tree() {
+    //     clear();
+    // }
 
     void add_root(Node<T>* root) {
         this->root = root;
